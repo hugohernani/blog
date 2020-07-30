@@ -1,10 +1,11 @@
 {
-  "name": "api",
+  "name": "articles_api",
   "version": "0.0.1",
   "description": "",
   "author": "",
   "license": "MIT",
   "scripts": {
+    "typeorm": "tsc && ts-node -r tsconfig-paths/register ../../node_modules/typeorm/cli.js",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
