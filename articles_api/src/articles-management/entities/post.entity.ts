@@ -16,7 +16,7 @@ import { Author } from './author.entity';
 export class Post {
   @Field(() => Int)
   @PrimaryGeneratedColumn('uuid')
-  id: number
+  id: string
 
   @Column()
   title: string
@@ -29,7 +29,7 @@ export class Post {
     enum: PostStatus,
     default: PostStatus.DRAFT
   })
-  status: boolean
+  status: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   createdAt: Date

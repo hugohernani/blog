@@ -16,4 +16,8 @@ export class PostsService {
       relations: ['author']}
     )
   }
+
+  async changeStatus({id, status}: {id: string, status: string}): Promise<Post>{
+    return await this.postsRepository.save({id,status})
+  }
 }

@@ -12,7 +12,7 @@ import { Post } from './post.entity';
 export class Author{
   @Field(() => Int)
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   firstName?: string;

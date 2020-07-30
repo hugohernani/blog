@@ -1,6 +1,7 @@
-import { Resolver, Args, Query, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query, ResolveField, Parent } from '@nestjs/graphql';
 import { Post, Author } from '../entities';
 import { AuthorsService, PostsService } from '../services';
+import { PostChangeStatusInput } from './post-change-status-input';
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -18,5 +19,10 @@ export class PostsResolver {
   async posts(@Parent() author: Author){
     const { id } = author;
     return this.postsService.findAll({author: {id: id}})
+  }
+
+  @Mutation(() => Post)
+  async changeStatus(@Args() changeStatusData: PostChangeStatusInput){
+    return this.postsService.changeStatus(changeStatusData);
   }
 }
