@@ -10,6 +10,9 @@ import { ArticlesManagementModule } from './articles-management/articles-managem
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      debug: true,
+      playground: true,
+      installSubscriptionHandlers: true
     }),
     TypeOrmModule.forRoot(),
     ArticlesManagementModule,

@@ -8,6 +8,7 @@ export class PostChangeStatusInput {
   @IsUUID()
   id: string;
 
+  @Field()
   @IsEnum(PostStatus)
   status: string;
 }

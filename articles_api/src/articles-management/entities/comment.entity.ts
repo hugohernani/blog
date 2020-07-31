@@ -3,35 +3,22 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToOne,
-  OneToMany,
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { ObjectType, Field, Int } from '@nestjs/graphql'
-import { PostStatus } from './enums';
-import { Author } from './author.entity';
-import { Comment } from './comment.entity';
+import { Post } from './post.entity';
 
 @ObjectType()
 @Entity()
-export class Post {
+export class Comment {
   @Field(() => Int)
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  title: string
-
   @Column('text', {nullable: false })
-  description: string
-
-  @Column({
-    type: 'enum',
-    enum: PostStatus,
-    default: PostStatus.DRAFT
-  })
-  status: string
+  content: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   createdAt: Date
@@ -39,10 +26,7 @@ export class Post {
   @UpdateDateColumn({ type: 'timestamp', nullable: false })
   updatedAt: Date
 
-  @OneToOne(() => Author, author => author.posts)
+  @OneToOne(() => Post, post => post.comments)
   @JoinColumn()
-  author: Author;
-
-  @OneToMany(() => Comment, comment => comment.post)
-  comments: Comment[];
+  post: Post;
 }
