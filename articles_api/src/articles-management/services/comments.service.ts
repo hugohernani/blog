@@ -10,7 +10,7 @@ export class CommentsService {
     private commentsRepository: Repository<Comment>
   ){}
 
-  async addComment({postId: post_id, content}: {postId: string, content: string}): Promise<Comment>{
-    return await this.commentsRepository.save({post_id, content})
+  async addComment({postId, content}: {postId: string, content: string}): Promise<Comment>{
+    return await this.commentsRepository.save({postId, content})
   }
 }

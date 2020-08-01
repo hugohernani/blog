@@ -36,10 +36,10 @@ export class PostsResolver {
 
   @Mutation(() => Post)
   async addComment(
-    @Args('postId', { type: () => Int }) postId: number,
+    @Args('postId', { type: () => Int }) postId: string,
     @Args('comment', { type: () => Comment }) {content}: PostCommentInput,
   ) {
-    const newComment = this.commentsService.addComment({ post_id: id, content });
+    const newComment = this.commentsService.addComment({ postId, content });
     pubSub.publish('commentAdded', { commentAdded: newComment });
     return newComment;
   }

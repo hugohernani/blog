@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class AddBasicAuthorPostEntities1596173013130 implements MigrationInterface {
-    name = 'AddBasicAuthorPostEntities1596173013130'
+export class AddBasicAuthorPostEntities1596304625207 implements MigrationInterface {
+    name = 'AddBasicAuthorPostEntities1596304625207'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "comment" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "content" text NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "postId" uuid, CONSTRAINT "REL_94a85bb16d24033a2afdd5df06" UNIQUE ("postId"), CONSTRAINT "PK_0b0e4bbc8415ec426f87f3a88e2" PRIMARY KEY ("id"))`);
