@@ -1,51 +1,94 @@
-import { Resolver, Mutation, Args, Query, ResolveField, Parent, Subscription, Int } from '@nestjs/graphql';
-import { Post, Author } from '../entities';
-import { AuthorsService, PostsService, CommentsService } from '../services';
-import { PostChangeStatusInput } from './post-change-status-input';
-import { PostCommentInput } from './post-comment-input';
-import { PubSub } from 'graphql-subscriptions';
+import { Inject } from '@nestjs/common'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+  Subscription,
+} from '@nestjs/graphql'
+import { PubSub } from 'graphql-subscriptions'
+import { customProviderConfig } from '../../constants'
+import { Author, Post, Comment } from '../entities'
+import { AuthorsService, CommentsService, PostsService } from '../services'
+import { PostChangeStatusInput } from './post-change-status-input'
+import { PostCommentInput } from './post-comment-input'
+import { PostCreateInput } from './post-create-input'
+import { PostUpdateInput } from './post-update-input'
 
-// simple pubsub. For prod use external librery:
-// - https://github.com/apollographql/graphql-subscriptions#getting-started-with-your-first-subscription
-// - https://github.com/apollographql/graphql-subscriptions#pubsub-implementations
-const pubSub = new PubSub();
-
-@Resolver(() => Post)
+@Resolver(Post)
 export class PostsResolver {
+  // simple pubsub. For prod use external librery:
+  // - https://github.com/apollographql/graphql-subscriptions#getting-started-with-your-first-subscription
+  // - https://github.com/apollographql/graphql-subscriptions#pubsub-implementations
+
   constructor(
     private authorsService: AuthorsService,
     private postsService: PostsService,
-    private commentsService: CommentsService
-  ){}
+    private commentsService: CommentsService,
+    @Inject(customProviderConfig.pubSubToken) private pubSub: PubSub
+  ) {}
 
-  @Query(() => Author, {name: 'author'})
-  async getAuthor(@Args('id') id: string){
-    return this.authorsService.find(id);
+  @Query(() => Author, { name: 'author' })
+  async getAuthor(@Args('id') id: string) {
+    return this.authorsService.find(id)
+  }
+
+  @Query(() => [Post], { name: 'posts'})
+  async getAllPosts(){
+    return this.postsService.findAll({});
   }
 
   @ResolveField('posts', () => [Post])
-  async posts(@Parent() author: Author){
-    const { id } = author;
-    return this.postsService.findAll({author: {id: id}})
+  async posts(@Parent() author: Author) {
+    const { id } = author
+    return this.postsService.findAll({ author: { id: id } })
   }
 
   @Mutation(() => Post)
-  async changeStatus(@Args() changeStatusData: PostChangeStatusInput){
-    return this.postsService.changeStatus(changeStatusData);
+  async create(@Args('inputPost') postData: PostCreateInput) {
+    return this.postsService.create(postData as Post)
+  }
+
+  @Mutation(() => Post)
+  async update(@Args('inputPost') postData: PostUpdateInput) {
+    return this.postsService.update(postData as Post)
+  }
+
+  @Mutation(() => Post)
+  async delete(@Args('id') id: string) {
+    return this.postsService.destroy(id)
+  }
+
+  @Mutation(() => Post)
+  async changeStatus(@Args('changeStatusInput') changeStatusData: PostChangeStatusInput) {
+    return this.postsService.changeStatus(changeStatusData)
   }
 
   @Mutation(() => Post)
   async addComment(
-    @Args('postId', { type: () => Int }) postId: string,
-    @Args('comment', { type: () => Comment }) {content}: PostCommentInput,
+    @Args('postId', { type: () => String }) postId: string,
+    @Args('comment') commentInput: PostCommentInput
   ) {
-    const newComment = this.commentsService.addComment({ postId, content });
-    pubSub.publish('commentAdded', { commentAdded: newComment });
-    return newComment;
+    const { content } = commentInput;
+    const newComment  = this.commentsService.addComment({ postId, content })
+    await this.pubSub.publish('commentAdded', { commentAdded: newComment })
+    return newComment
   }
 
-  @Subscription(() => Comment)
-  commentAdded(){
-    return pubSub.asyncIterator('commentAdded');
+  // The keyword this will resolve to an instance of PostsResolver
+  // it allows to use attached service
+  @Subscription(_ => Comment, {
+    resolve(this: PostsResolver, comment) {
+      return comment
+    },
+    filter(this: PostsResolver, _payload, __variables) {
+      // return payload.commentAdded.title === variables.title;
+      return true
+    },
+  })
+  commentAdded() {
+    return this.pubSub.asyncIterator('commentAdded')
   }
 }

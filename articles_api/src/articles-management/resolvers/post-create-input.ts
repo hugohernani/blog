@@ -1,14 +1,16 @@
 import { InputType, Field, registerEnumType } from '@nestjs/graphql';
-import { IsUUID, IsEnum } from 'class-validator';
+import { IsString, IsEnum } from 'class-validator';
 import { PostStatus } from '../entities';
 
 registerEnumType(PostStatus, { name: 'PostStatus' })
 
 @InputType()
-export class PostChangeStatusInput {
-  @Field()
-  @IsUUID()
-  id: string;
+export class PostCreateInput {
+  @IsString()
+  title: string;
+
+  @IsString()
+  description: string;
 
   @Field(() => PostStatus)
   @IsEnum(PostStatus)

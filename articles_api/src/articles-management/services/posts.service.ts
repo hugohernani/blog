@@ -16,6 +16,19 @@ export class PostsService {
       relations: ['author']}
     )
   }
+  async create(postAttrs: Post): Promise<Post>{
+    return await this.postsRepository.save(postAttrs);
+  }
+
+  async update(postAttrs: Post): Promise<Post>{
+    return await this.postsRepository.save(postAttrs);
+  }
+
+  async destroy(id: string): Promise<Post>{
+    const post = await this.postsRepository.findOne(id);
+    await this.postsRepository.remove(post);
+    return post;
+  }
 
   async changeStatus({id, status}: {id: string, status: string}): Promise<Post>{
     return await this.postsRepository.save({id,status})
