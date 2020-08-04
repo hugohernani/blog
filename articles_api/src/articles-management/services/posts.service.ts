@@ -10,18 +10,30 @@ export class PostsService {
     private postsRepository: Repository<Post>
   ){}
 
+  async find(id: string): Promise<Post>{
+    return await this.postsRepository.findOne(id);
+  }
+
+  // TODO: Replace Object type with DTO objects
   async findAll(condition: Object): Promise<Post[]>{
     return await this.postsRepository.find({
       where: condition,
       relations: ['author']}
     )
   }
-  async create(postAttrs: Post): Promise<Post>{
-    return await this.postsRepository.save(postAttrs);
+
+  // TODO: Replace Object type with DTO objects
+  async create(postAttrs: Object): Promise<Post>{
+    const newPost = this.postsRepository.create(postAttrs);
+    await this.postsRepository.save(newPost);
+    return newPost;
   }
 
-  async update(postAttrs: Post): Promise<Post>{
-    return await this.postsRepository.save(postAttrs);
+  // TODO: Replace Object type with DTO objects
+  async update(postAttrs: Object): Promise<Post>{
+    const updatedPost = this.postsRepository.create(postAttrs);
+    await this.postsRepository.save(updatedPost);
+    return updatedPost;
   }
 
   async destroy(id: string): Promise<Post>{

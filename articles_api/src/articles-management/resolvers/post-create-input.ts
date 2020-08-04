@@ -7,12 +7,18 @@ registerEnumType(PostStatus, { name: 'PostStatus' })
 @InputType()
 export class PostCreateInput {
   @IsString()
+  @Field()
   title: string;
 
   @IsString()
+  @Field()
   description: string;
 
-  @Field(() => PostStatus)
+  @Field(() => PostStatus, {nullable: true})
   @IsEnum(PostStatus)
-  status: PostStatus;
+  status?: PostStatus;
+
+  @IsString()
+  @Field()
+  authorId: string;
 }

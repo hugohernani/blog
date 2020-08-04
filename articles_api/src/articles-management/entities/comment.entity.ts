@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn, Entity,
-  JoinColumn, OneToOne, PrimaryGeneratedColumn,
+  JoinColumn, ManyToOne, PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { Post } from './post.entity';
@@ -11,11 +11,11 @@ import { Post } from './post.entity';
 @ObjectType()
 export class Comment {
   @PrimaryGeneratedColumn('uuid')
-  @Field()
+  @Field({nullable: true})
   id: string
 
   @Column('text', {nullable: false })
-  @Field()
+  @Field({nullable: true})
   content: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
@@ -26,8 +26,11 @@ export class Comment {
   @Field()
   updatedAt: Date
 
-  @OneToOne(() => Post, post => post.comments)
-  @JoinColumn()
-  @Field(() => Post)
+  @Column({nullable: true})
+  postId: string;
+
+  @ManyToOne(() => Post, post => post.comments)
+  @JoinColumn({name: 'postId'})
+  @Field(() => Post, {nullable: true})
   post: Post;
 }

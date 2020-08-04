@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { PubSub } from 'graphql-subscriptions'
 import { customProviderConfig } from '../constants'
 import { Author, Comment, Post } from './entities'
-import { PostsResolver } from './resolvers/posts.resolver'
+import { AuthorsResolver, PostsResolver, CommentsResolver } from './resolvers/'
 import { AuthorsService, CommentsService, PostsService } from './services'
 
 @Module({
@@ -16,7 +16,7 @@ import { AuthorsService, CommentsService, PostsService } from './services'
       provide: customProviderConfig.pubSubToken,
       useValue: new PubSub(),
     },
-    PostsResolver,
+    AuthorsResolver, PostsResolver, CommentsResolver
   ],
 })
 export class ArticlesManagementModule {}

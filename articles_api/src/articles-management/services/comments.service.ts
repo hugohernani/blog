@@ -10,7 +10,20 @@ export class CommentsService {
     private commentsRepository: Repository<Comment>
   ){}
 
-  async addComment({postId, content}: {postId: string, content: string}): Promise<Comment>{
-    return await this.commentsRepository.save({postId, content})
+  async addComment(commentAttrs: Object): Promise<Comment>{
+    const newComment = this.commentsRepository.create(commentAttrs)
+    await this.commentsRepository.save(newComment);
+    return newComment;
+  }
+
+  // TODO: Replace Object type with DTO objects
+  async findAll(condition: Object): Promise<Comment[]>{
+    return await this.commentsRepository.find({where: condition})
+  }
+
+  async destroy(id: string): Promise<Comment>{
+    const post = await this.commentsRepository.findOne(id);
+    await this.commentsRepository.remove(post);
+    return post;
   }
 }

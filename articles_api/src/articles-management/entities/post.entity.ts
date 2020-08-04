@@ -2,7 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
+  ManyToOne,
   OneToMany,
   JoinColumn,
   CreateDateColumn,
@@ -21,11 +21,11 @@ export class Post {
   id: string
 
   @Column()
-  @Field()
+  @Field({nullable: true})
   title: string
 
   @Column('text', {nullable: false })
-  @Field()
+  @Field({nullable: true})
   description: string
 
   @Column({
@@ -33,7 +33,7 @@ export class Post {
     enum: PostStatus,
     default: PostStatus.DRAFT
   })
-  @Field()
+  @Field({nullable: true})
   status: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
@@ -44,12 +44,15 @@ export class Post {
   @Field()
   updatedAt: Date
 
-  @OneToOne(() => Author, author => author.posts)
-  @JoinColumn()
-  @Field(() => Author)
+  @Column({nullable: true})
+  authorId: string;
+
+  @ManyToOne(() => Author, author => author.posts)
+  @JoinColumn({name: 'authorId'})
+  @Field(() => Author, {nullable: true})
   author: Author;
 
   @OneToMany(() => Comment, comment => comment.post)
-  @Field(() => [Comment])
+  @Field(() => [Comment], {nullable: true})
   comments: Comment[];
 }

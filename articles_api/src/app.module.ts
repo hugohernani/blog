@@ -9,7 +9,7 @@ import { ArticlesManagementModule } from './articles-management/articles-managem
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: join(process.cwd(), '../', 'commom', 'schema.gql'),
       debug: true,
       playground: true,
       installSubscriptionHandlers: true

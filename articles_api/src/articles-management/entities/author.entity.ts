@@ -11,21 +11,21 @@ import { Post } from './post.entity';
 @Entity()
 export class Author{
   @PrimaryGeneratedColumn('uuid')
-  @Field()
+  @Field({nullable: true})
   id: string;
 
   @Column()
-  @Field()
+  @Field({nullable: true})
   firstName?: string;
 
   @Column()
-  @Field()
+  @Field({nullable: true})
   lastName?: string
 
+  @Field(() => [Post], {nullable: 'items'})
   @OneToMany(() => Post, post => post.author, {
     eager: true,
     cascade: true
   })
-  @Field(() => Post)
   posts: Post[];
 }

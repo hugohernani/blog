@@ -12,6 +12,7 @@ export class AuthorsService {
   ){}
 
   async find(id: string): Promise<Author>{
-    return await this.authorsRepository.findOne(id);
+    const result = await this.authorsRepository.findOne(id);
+    return result;
   }
 }
