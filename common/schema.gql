@@ -1,0 +1,249 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Author {
+  firstName: String!
+  id: String!
+  lastName: String!
+}
+
+type AuthorConnection {
+  """Array of edges."""
+  edges: [AuthorEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type AuthorCountAggregate {
+  firstName: Int
+  id: Int
+  lastName: Int
+}
+
+input AuthorDeleteFilter {
+  and: [AuthorDeleteFilter!]
+  firstName: StringFieldComparison
+  id: StringFieldComparison
+  lastName: StringFieldComparison
+  or: [AuthorDeleteFilter!]
+}
+
+type AuthorDeleteResponse {
+  firstName: String
+  id: String
+  lastName: String
+}
+
+type AuthorEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Author"""
+  node: Author!
+}
+
+input AuthorFilter {
+  and: [AuthorFilter!]
+  firstName: StringFieldComparison
+  id: StringFieldComparison
+  lastName: StringFieldComparison
+  or: [AuthorFilter!]
+}
+
+type AuthorMaxAggregate {
+  firstName: String
+  id: String
+  lastName: String
+}
+
+type AuthorMinAggregate {
+  firstName: String
+  id: String
+  lastName: String
+}
+
+input AuthorSort {
+  direction: SortDirection!
+  field: AuthorSortFields!
+  nulls: SortNulls
+}
+
+enum AuthorSortFields {
+  firstName
+  id
+  lastName
+}
+
+input AuthorUpdateFilter {
+  and: [AuthorUpdateFilter!]
+  firstName: StringFieldComparison
+  id: StringFieldComparison
+  lastName: StringFieldComparison
+  or: [AuthorUpdateFilter!]
+}
+
+type Comment {
+  content: String
+  createdAt: DateTime
+  id: String
+  post: Post
+  updatedAt: DateTime
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+input CreateAuthor {
+  firstName: String
+  id: String
+  lastName: String
+}
+
+input CreateManyAuthorsInput {
+  """Array of records to create"""
+  authors: [CreateAuthor!]!
+}
+
+input CreateOneAuthorInput {
+  """The record to create"""
+  author: CreateAuthor!
+}
+
+input CursorPaging {
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyAuthorsInput {
+  """Filter to find records to delete"""
+  filter: AuthorDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteOneInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+type Mutation {
+  createManyAuthors(input: CreateManyAuthorsInput!): [Author!]!
+  createOneAuthor(input: CreateOneAuthorInput!): Author!
+  deleteManyAuthors(input: DeleteManyAuthorsInput!): DeleteManyResponse!
+  deleteOneAuthor(input: DeleteOneInput!): AuthorDeleteResponse!
+  updateManyAuthors(input: UpdateManyAuthorsInput!): UpdateManyResponse!
+  updateOneAuthor(input: UpdateOneAuthorInput!): Author!
+}
+
+type PageInfo {
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+}
+
+type Post {
+  comments: [Comment!]
+  createdAt: DateTime!
+  description: String
+  id: String!
+  status: String
+  title: String
+  updatedAt: DateTime!
+}
+
+type Query {
+  author(id: ID!): Author
+  authors(
+    """Specify to filter the records returned."""
+    filter: AuthorFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [AuthorSort!] = []
+  ): AuthorConnection!
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input UpdateAuthor {
+  firstName: String
+  id: String
+  lastName: String
+}
+
+input UpdateManyAuthorsInput {
+  """Filter used to find fields to update"""
+  filter: AuthorUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateAuthor!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateOneAuthorInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateAuthor!
+}

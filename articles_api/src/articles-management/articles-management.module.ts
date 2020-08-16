@@ -2,12 +2,30 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { PubSub } from 'graphql-subscriptions'
 import { customProviderConfig } from '../constants'
-import { Author, Comment, Post } from './entities'
+import { AuthorEntity, Comment, Post } from './entities'
+import { AuthorDTO } from './dto';
 import { AuthorsResolver, PostsResolver, CommentsResolver } from './resolvers/'
 import { AuthorsService, CommentsService, PostsService } from './services'
+import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql'
+import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Author, Post, Comment])],
+  imports: [
+    TypeOrmModule.forFeature([
+      AuthorEntity, Post, Comment
+    ]),
+    NestjsQueryGraphQLModule.forFeature({
+      imports: [
+        NestjsQueryTypeOrmModule.forFeature([AuthorEntity])
+      ],
+      resolvers: [
+        {
+          DTOClass: AuthorDTO,
+          EntityClass: AuthorEntity
+        }
+      ]
+    })
+  ],
   providers: [
     AuthorsService,
     PostsService,
@@ -16,7 +34,7 @@ import { AuthorsService, CommentsService, PostsService } from './services'
       provide: customProviderConfig.pubSubToken,
       useValue: new PubSub(),
     },
-    AuthorsResolver, PostsResolver, CommentsResolver
+    // PostsResolver, CommentsResolver
   ],
 })
 export class ArticlesManagementModule {}
