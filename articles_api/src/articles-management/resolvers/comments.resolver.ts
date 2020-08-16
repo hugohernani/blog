@@ -9,7 +9,7 @@ import { PubSub } from 'graphql-subscriptions'
 import { customProviderConfig } from '../../constants'
 import { Comment, Post } from '../entities'
 import { CommentsService, PostsService } from '../services'
-import { PostCommentInput } from './post-comment-input'
+import { PostCommentInput } from '../inputs'
 
 @Resolver(Comment)
 export class CommentsResolver {
@@ -33,8 +33,7 @@ export class CommentsResolver {
   async addComment(
     @Args('inputComment') commentInput: PostCommentInput
   ) {
-    const { content, postId } = commentInput;
-    const newComment = this.commentsService.addComment({ postId, content })
+    const newComment = this.commentsService.addComment(commentInput)
     await this.pubSub.publish('commentAdded', { commentAdded: newComment })
     return newComment;
   }
@@ -44,11 +43,11 @@ export class CommentsResolver {
     return this.commentsService.destroy(id)
   }
 
-  // The keyword this will resolve to an instance of PostsResolver
+  // The keyword this will resolve to an instance of CommentsResolver
   // it allows to use attached service
-  @Subscription(_ => Comment, {
-    resolve(this: CommentsResolver, comment) {
-      return comment
+  @Subscription(() => Comment, {
+    resolve(this: CommentsResolver, {commentAdded}) {
+      return commentAdded;
     },
     filter(this: CommentsResolver, _payload, __variables) {
       // return payload.commentAdded.title === variables.title;

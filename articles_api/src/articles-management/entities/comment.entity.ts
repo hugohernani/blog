@@ -19,11 +19,11 @@ export class Comment {
   content: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
-  @Field()
+  @Field({nullable: true})
   createdAt: Date
 
   @UpdateDateColumn({ type: 'timestamp', nullable: false })
-  @Field()
+  @Field({nullable: true})
   updatedAt: Date
 
   @Column({nullable: true})

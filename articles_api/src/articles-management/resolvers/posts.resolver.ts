@@ -8,9 +8,9 @@ import {
 } from '@nestjs/graphql'
 import { Comment, Post } from '../entities'
 import { CommentsService, PostsService } from '../services'
-import { PostChangeStatusInput } from './post-change-status-input'
-import { PostCreateInput } from './post-create-input'
-import { PostUpdateInput } from './post-update-input'
+import { PostChangeStatusInput, PostCreateInput, PostUpdateInput } from '../inputs'
+import { ConnectionPost, PaginatedPost } from '../object-type'
+import { PaginationArgs } from '../args';
 
 @Resolver(Post)
 export class PostsResolver {
@@ -19,9 +19,11 @@ export class PostsResolver {
     private commentsService: CommentsService
   ) {}
 
-  @Query(() => [Post], { name: 'posts'})
-  async getPosts(){
-    return this.postsService.findAll({});
+  @Query(() => PaginatedPost, { name: 'allPosts'})
+  async getPosts(@Args() paginationArgs: PaginationArgs){
+    const result = await this.postsService.findAll({});
+    console.log(result)
+    return result;
   }
 
   @Query(() => Post, { name: 'post' })

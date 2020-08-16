@@ -3,6 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from '../entities';
 
+type PaginationArgs = {
+  limit: number,
+  offset: number
+};
+
 @Injectable()
 export class PostsService {
   constructor(
@@ -15,11 +20,11 @@ export class PostsService {
   }
 
   // TODO: Replace Object type with DTO objects
-  async findAll(condition: Object): Promise<Post[]>{
+  async findAll(condition: Object, paginationArgs?: PaginationArgs): Promise<Post[]>{
     return await this.postsRepository.find({
       where: condition,
-      relations: ['author']}
-    )
+      relations: ['author']
+    })
   }
 
   // TODO: Replace Object type with DTO objects

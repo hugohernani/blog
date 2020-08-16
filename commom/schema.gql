@@ -5,8 +5,8 @@
 type Comment {
   id: String
   content: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  createdAt: DateTime
+  updatedAt: DateTime
   post: Post!
 }
 
@@ -33,8 +33,25 @@ type Author {
   posts: [Post]!
 }
 
+type PageInfo {
+  endCursor: String!
+  hasNextPage: Boolean!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post!
+}
+
+type PaginatedPost {
+  edges: [PostEdge!]
+  nodes: [Post!]
+  totalCount: Int!
+  pageInfo: PageInfo
+}
+
 type Query {
-  posts: [Post!]!
+  allPosts(first: Int = 100, before: String, after: String): PaginatedPost!
   post(id: String!): Post!
   author(id: String!): Author!
 }
