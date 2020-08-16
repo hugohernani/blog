@@ -4,7 +4,7 @@ import {
   Column,
   OneToMany,
 } from 'typeorm'
-import { Post } from './post.entity';
+import { PostEntity } from './post.entity';
 
 @Entity('author')
 export class AuthorEntity{
@@ -17,9 +17,9 @@ export class AuthorEntity{
   @Column()
   lastName?: string
 
-  // @OneToMany(() => Post, post => post.author, {
-  //   eager: true,
-  //   cascade: true
-  // })
-  // posts: Post[];
+  @OneToMany(() => PostEntity, post => post.author, {
+    eager: true,
+    cascade: true
+  })
+  posts: PostEntity[];
 }
