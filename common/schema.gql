@@ -6,6 +6,16 @@ type Author {
   firstName: String!
   id: String!
   lastName: String!
+  posts(
+    """Specify to filter the records returned."""
+    filter: PostFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [PostSort!] = []
+  ): AuthorPostsConnection!
 }
 
 type AuthorConnection {
@@ -50,6 +60,17 @@ input AuthorFilter {
   id: StringFieldComparison
   lastName: StringFieldComparison
   or: [AuthorFilter!]
+  posts: AuthorFilterPostFilter
+}
+
+input AuthorFilterPostFilter {
+  and: [AuthorFilterPostFilter!]
+  authorId: StringFieldComparison
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [AuthorFilterPostFilter!]
+  status: StringFieldComparison
+  title: StringFieldComparison
 }
 
 type AuthorMaxAggregate {
@@ -62,6 +83,17 @@ type AuthorMinAggregate {
   firstName: String
   id: String
   lastName: String
+}
+
+type AuthorPostsConnection {
+  """Array of edges."""
+  edges: [PostEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 input AuthorSort {
@@ -85,11 +117,110 @@ input AuthorUpdateFilter {
 }
 
 type Comment {
+  content: String!
+  createdAt: DateTime!
+  id: String!
+  post: Post!
+  postId: String!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type CommentConnection {
+  """Array of edges."""
+  edges: [CommentEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type CommentCountAggregate {
+  content: Int
+  id: Int
+  postId: Int
+  title: Int
+}
+
+input CommentDeleteFilter {
+  and: [CommentDeleteFilter!]
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [CommentDeleteFilter!]
+  postId: StringFieldComparison
+  title: StringFieldComparison
+}
+
+type CommentDeleteResponse {
   content: String
   createdAt: DateTime
   id: String
-  post: Post
+  postId: String
+  title: String
   updatedAt: DateTime
+}
+
+type CommentEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Comment"""
+  node: Comment!
+}
+
+input CommentFilter {
+  and: [CommentFilter!]
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [CommentFilter!]
+  post: CommentFilterPostFilter
+  postId: StringFieldComparison
+  title: StringFieldComparison
+}
+
+input CommentFilterPostFilter {
+  and: [CommentFilterPostFilter!]
+  authorId: StringFieldComparison
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [CommentFilterPostFilter!]
+  status: StringFieldComparison
+  title: StringFieldComparison
+}
+
+type CommentMaxAggregate {
+  content: String
+  id: String
+  postId: String
+  title: String
+}
+
+type CommentMinAggregate {
+  content: String
+  id: String
+  postId: String
+  title: String
+}
+
+input CommentSort {
+  direction: SortDirection!
+  field: CommentSortFields!
+  nulls: SortNulls
+}
+
+enum CommentSortFields {
+  content
+  id
+  postId
+  title
+}
+
+input CommentUpdateFilter {
+  and: [CommentUpdateFilter!]
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [CommentUpdateFilter!]
+  postId: StringFieldComparison
+  title: StringFieldComparison
 }
 
 """Cursor for paging through collections"""
@@ -101,14 +232,53 @@ input CreateAuthor {
   lastName: String
 }
 
+input CreateComment {
+  content: String
+  createdAt: DateTime
+  id: String
+  postId: String
+  title: String
+  updatedAt: DateTime
+}
+
 input CreateManyAuthorsInput {
   """Array of records to create"""
   authors: [CreateAuthor!]!
 }
 
+input CreateManyCommentsInput {
+  """Array of records to create"""
+  comments: [CreateComment!]!
+}
+
+input CreateManyPostsInput {
+  """Array of records to create"""
+  posts: [CreatePost!]!
+}
+
 input CreateOneAuthorInput {
   """The record to create"""
   author: CreateAuthor!
+}
+
+input CreateOneCommentInput {
+  """The record to create"""
+  comment: CreateComment!
+}
+
+input CreateOnePostInput {
+  """The record to create"""
+  post: CreatePost!
+}
+
+input CreatePost {
+  authorId: String
+  content: String
+  createdAt: DateTime
+  id: String
+  status: String
+  title: String
+  updatedAt: DateTime
 }
 
 input CursorPaging {
@@ -135,6 +305,16 @@ input DeleteManyAuthorsInput {
   filter: AuthorDeleteFilter!
 }
 
+input DeleteManyCommentsInput {
+  """Filter to find records to delete"""
+  filter: CommentDeleteFilter!
+}
+
+input DeleteManyPostsInput {
+  """Filter to find records to delete"""
+  filter: PostDeleteFilter!
+}
+
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -147,11 +327,23 @@ input DeleteOneInput {
 
 type Mutation {
   createManyAuthors(input: CreateManyAuthorsInput!): [Author!]!
+  createManyComments(input: CreateManyCommentsInput!): [Comment!]!
+  createManyPosts(input: CreateManyPostsInput!): [Post!]!
   createOneAuthor(input: CreateOneAuthorInput!): Author!
+  createOneComment(input: CreateOneCommentInput!): Comment!
+  createOnePost(input: CreateOnePostInput!): Post!
   deleteManyAuthors(input: DeleteManyAuthorsInput!): DeleteManyResponse!
+  deleteManyComments(input: DeleteManyCommentsInput!): DeleteManyResponse!
+  deleteManyPosts(input: DeleteManyPostsInput!): DeleteManyResponse!
   deleteOneAuthor(input: DeleteOneInput!): AuthorDeleteResponse!
+  deleteOneComment(input: DeleteOneInput!): CommentDeleteResponse!
+  deleteOnePost(input: DeleteOneInput!): PostDeleteResponse!
   updateManyAuthors(input: UpdateManyAuthorsInput!): UpdateManyResponse!
+  updateManyComments(input: UpdateManyCommentsInput!): UpdateManyResponse!
+  updateManyPosts(input: UpdateManyPostsInput!): UpdateManyResponse!
   updateOneAuthor(input: UpdateOneAuthorInput!): Author!
+  updateOneComment(input: UpdateOneCommentInput!): Comment!
+  updateOnePost(input: UpdateOnePostInput!): Post!
 }
 
 type PageInfo {
@@ -169,13 +361,148 @@ type PageInfo {
 }
 
 type Post {
-  comments: [Comment!]
+  author: Author!
+  authorId: String!
+  comments(
+    """Specify to filter the records returned."""
+    filter: CommentFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [CommentSort!] = []
+  ): PostCommentsConnection!
+  content: String!
   createdAt: DateTime!
-  description: String
   id: String!
+  status: String!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type PostCommentsConnection {
+  """Array of edges."""
+  edges: [CommentEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type PostConnection {
+  """Array of edges."""
+  edges: [PostEdge!]!
+
+  """Paging information"""
+  pageInfo: PageInfo!
+}
+
+type PostCountAggregate {
+  authorId: Int
+  content: Int
+  id: Int
+  status: Int
+  title: Int
+}
+
+input PostDeleteFilter {
+  and: [PostDeleteFilter!]
+  authorId: StringFieldComparison
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [PostDeleteFilter!]
+  status: StringFieldComparison
+  title: StringFieldComparison
+}
+
+type PostDeleteResponse {
+  authorId: String
+  content: String
+  createdAt: DateTime
+  id: String
   status: String
   title: String
-  updatedAt: DateTime!
+  updatedAt: DateTime
+}
+
+type PostEdge {
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+
+  """The node containing the Post"""
+  node: Post!
+}
+
+input PostFilter {
+  and: [PostFilter!]
+  author: PostFilterAuthorFilter
+  authorId: StringFieldComparison
+  comments: PostFilterCommentFilter
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [PostFilter!]
+  status: StringFieldComparison
+  title: StringFieldComparison
+}
+
+input PostFilterAuthorFilter {
+  and: [PostFilterAuthorFilter!]
+  firstName: StringFieldComparison
+  id: StringFieldComparison
+  lastName: StringFieldComparison
+  or: [PostFilterAuthorFilter!]
+}
+
+input PostFilterCommentFilter {
+  and: [PostFilterCommentFilter!]
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [PostFilterCommentFilter!]
+  postId: StringFieldComparison
+  title: StringFieldComparison
+}
+
+type PostMaxAggregate {
+  authorId: String
+  content: String
+  id: String
+  status: String
+  title: String
+}
+
+type PostMinAggregate {
+  authorId: String
+  content: String
+  id: String
+  status: String
+  title: String
+}
+
+input PostSort {
+  direction: SortDirection!
+  field: PostSortFields!
+  nulls: SortNulls
+}
+
+enum PostSortFields {
+  authorId
+  content
+  id
+  status
+  title
+}
+
+input PostUpdateFilter {
+  and: [PostUpdateFilter!]
+  authorId: StringFieldComparison
+  content: StringFieldComparison
+  id: StringFieldComparison
+  or: [PostUpdateFilter!]
+  status: StringFieldComparison
+  title: StringFieldComparison
 }
 
 type Query {
@@ -190,6 +517,28 @@ type Query {
     """Specify to sort results."""
     sorting: [AuthorSort!] = []
   ): AuthorConnection!
+  comment(id: ID!): Comment
+  comments(
+    """Specify to filter the records returned."""
+    filter: CommentFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [CommentSort!] = []
+  ): CommentConnection!
+  post(id: ID!): Post
+  posts(
+    """Specify to filter the records returned."""
+    filter: PostFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [PostSort!] = []
+  ): PostConnection!
 }
 
 """Sort Directions"""
@@ -227,12 +576,37 @@ input UpdateAuthor {
   lastName: String
 }
 
+input UpdateComment {
+  content: String
+  createdAt: DateTime
+  id: String
+  postId: String
+  title: String
+  updatedAt: DateTime
+}
+
 input UpdateManyAuthorsInput {
   """Filter used to find fields to update"""
   filter: AuthorUpdateFilter!
 
   """The update to apply to all records found using the filter"""
   update: UpdateAuthor!
+}
+
+input UpdateManyCommentsInput {
+  """Filter used to find fields to update"""
+  filter: CommentUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateComment!
+}
+
+input UpdateManyPostsInput {
+  """Filter used to find fields to update"""
+  filter: PostUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdatePost!
 }
 
 type UpdateManyResponse {
@@ -246,4 +620,30 @@ input UpdateOneAuthorInput {
 
   """The update to apply."""
   update: UpdateAuthor!
+}
+
+input UpdateOneCommentInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateComment!
+}
+
+input UpdateOnePostInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdatePost!
+}
+
+input UpdatePost {
+  authorId: String
+  content: String
+  createdAt: DateTime
+  id: String
+  status: String
+  title: String
+  updatedAt: DateTime
 }
