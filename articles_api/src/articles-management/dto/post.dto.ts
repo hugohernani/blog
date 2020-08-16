@@ -1,9 +1,11 @@
-import { FilterableField, FilterableRelation } from "@nestjs-query/query-graphql";
+import { FilterableField, FilterableRelation, FilterableConnection } from "@nestjs-query/query-graphql";
 import { ObjectType, GraphQLISODateTime, Field } from '@nestjs/graphql'
 import { AuthorDTO } from './author.dto'
+import { CommentDTO } from './comment.dto'
 
 @ObjectType('Post')
 @FilterableRelation('author', () => AuthorDTO, { disableRemove: true, enableTotalCount: true, disableUpdate: true })
+@FilterableConnection('comments', () => CommentDTO, { disableRemove: true, enableTotalCount: true, disableUpdate: true })
 export class PostDTO{
   @FilterableField()
   id!: string;
@@ -24,5 +26,5 @@ export class PostDTO{
   updatedAt: string
 
   @FilterableField()
-  todoItemId!: string;
+  authorId!: string;
 }

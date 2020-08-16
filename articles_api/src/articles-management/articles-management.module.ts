@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { PubSub } from 'graphql-subscriptions'
 import { customProviderConfig } from '../constants'
-import { AuthorEntity, PostEntity, Comment } from './entities'
-import { AuthorDTO, PostDTO } from './dto';
+import { AuthorEntity, PostEntity, CommentEntity } from './entities'
+import { AuthorDTO, PostDTO, CommentDTO } from './dto';
 import { AuthorsResolver, PostsResolver, CommentsResolver } from './resolvers/'
 import { AuthorsService, CommentsService, PostsService } from './services'
 import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql'
@@ -12,11 +12,11 @@ import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm'
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      AuthorEntity, PostEntity, Comment
+      AuthorEntity, PostEntity, CommentEntity
     ]),
     NestjsQueryGraphQLModule.forFeature({
       imports: [
-        NestjsQueryTypeOrmModule.forFeature([AuthorEntity, PostEntity])
+        NestjsQueryTypeOrmModule.forFeature([AuthorEntity, PostEntity, CommentEntity])
       ],
       resolvers: [
         {
@@ -26,18 +26,22 @@ import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm'
         {
           DTOClass: PostDTO,
           EntityClass: PostEntity
+        },
+        {
+          DTOClass: CommentDTO,
+          EntityClass: CommentEntity
         }
       ]
     })
   ],
   providers: [
-    AuthorsService,
-    PostsService,
-    CommentsService,
-    {
-      provide: customProviderConfig.pubSubToken,
-      useValue: new PubSub(),
-    },
+    // AuthorsService,
+    // PostsService,
+    // CommentsService,
+    // {
+    //   provide: customProviderConfig.pubSubToken,
+    //   useValue: new PubSub(),
+    // },
     // PostsResolver, CommentsResolver
   ],
 })

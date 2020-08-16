@@ -11,7 +11,7 @@ import {
 import { ObjectType, Field } from '@nestjs/graphql'
 import { PostStatus } from './enums';
 import { AuthorEntity } from './author.entity';
-import { Comment } from './comment.entity';
+import { CommentEntity } from './comment.entity';
 
 @Entity("post")
 export class PostEntity {
@@ -41,7 +41,6 @@ export class PostEntity {
   @JoinColumn({name: 'authorId'})
   author: AuthorEntity;
 
-  // @OneToMany(() => Comment, comment => comment.post)
-  // @Field(() => [Comment], {nullable: true})
-  // comments: Comment[];
+  @OneToMany(() => CommentEntity, comment => comment.post)
+  comments: CommentEntity[];
 }

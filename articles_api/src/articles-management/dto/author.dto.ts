@@ -1,4 +1,4 @@
-import { FilterableField, Relation, FilterableConnection } from "@nestjs-query/query-graphql";
+import { FilterableField, FilterableConnection } from "@nestjs-query/query-graphql";
 import { ObjectType } from '@nestjs/graphql'
 import { PostDTO } from './post.dto'
 
