@@ -10,7 +10,7 @@ export class PostDTO{
   @FilterableField()
   id!: string;
 
-  @FilterableField()
+  @FilterableField({nullable: true})
   title: string;
 
   @FilterableField()

@@ -13,15 +13,18 @@ import { PostStatus } from './enums';
 import { AuthorEntity } from './author.entity';
 import { CommentEntity } from './comment.entity';
 
+@ObjectType()
 @Entity("post")
 export class PostEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
+  @Field()
   title: string
 
   @Column('text', {nullable: false })
+  @Field()
   content: string
 
   @Column({
@@ -29,6 +32,7 @@ export class PostEntity {
     enum: PostStatus,
     default: PostStatus.DRAFT
   })
+  @Field()
   status: string
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })

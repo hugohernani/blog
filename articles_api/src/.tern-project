@@ -1,0 +1,17 @@
+{
+  "ecmaVersion": "7",
+  "libs": [
+    "browser"
+  ],
+  "loadEagerly": [
+    "packages/payment/src/*",
+    "packages/restaurant/server.js"
+  ],
+  "dontLoad": [
+    "node_modules/**",
+    "packages/*/node_modules/**"
+  ],
+  "plugins": {
+    "doc_comment": true
+  }
+}
