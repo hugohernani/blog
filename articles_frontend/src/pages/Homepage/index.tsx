@@ -1,12 +1,18 @@
 import React from 'react'
-
-import { Header, Container } from './styles'
-import PostItems from '../../components/PostItems'
+import NavigationHeader from '../../components/NavigationHeader'
+import PostsController from '../../components/PostsController'
+import QuotesController from '../../components/QuotesController'
+import { BodyContainer, Container, Header } from './styles'
 
 const Homepage: React.FC = () => (
   <Container>
-    <Header>This is the homepage</Header>
-    <PostItems />
+    <NavigationHeader />
+    <Header>Meu Blog</Header>
+    <QuotesController />
+
+    <BodyContainer>
+      <PostsController />
+    </BodyContainer>
   </Container>
 )
 
