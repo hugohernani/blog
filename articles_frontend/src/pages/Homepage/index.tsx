@@ -1,9 +1,13 @@
-import React from 'react';
+import React from 'react'
 
-import PostItems from '../../components/PostItems';
+import { Header, Container } from './styles'
+import PostItems from '../../components/PostItems'
 
-const Homepage: React.FC = () => {
-  return <PostItems />
-}
+const Homepage: React.FC = () => (
+  <Container>
+    <Header>This is the homepage</Header>
+    <PostItems />
+  </Container>
+)
 
-export default Homepage;
+export default Homepage
