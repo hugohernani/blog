@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { Container, QuoteContainer } from './styles'
+import React, { useEffect, useState } from 'react'
+
 import { FaSun } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-
 import QuotationItem from '../QuotationItem'
-
-import { Container } from './styles'
 
 interface Quote {
   content: string
@@ -20,10 +18,6 @@ const QuotesController: React.FC = () => {
         content: 'Quotation Lorem Ipsum Lorem Ipsum',
         post_id: 'uuid-sample',
       },
-      {
-        content: 'Quotation 2 Lorem Ipsum Lorem Ipsum',
-        post_id: 'uuid-sample',
-      },
     ]
     setQuotes(_quotes)
   }, [])
@@ -31,11 +25,11 @@ const QuotesController: React.FC = () => {
   return (
     <Container>
       {quotes.length &&
-        quotes.map((quote, index) => (
-          <>
-            <FaSun />
-            <QuotationItem key={index} quote={quote} />
-          </>
+        quotes.map((quote) => (
+          <QuoteContainer key={quote.post_id}>
+            <FaSun size="150px" />
+            <QuotationItem quote={quote} />
+          </QuoteContainer>
         ))}
     </Container>
   )

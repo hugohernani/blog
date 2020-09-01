@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   *{
@@ -9,21 +9,36 @@ export default createGlobalStyle`
   }
 
   body{
-    background: '#fffff';
-    -webkit-font-smoothing: antialiased;
+    background-color: #c9d3dd;
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 
   body, input, button {
     font: 16px Roboto, sans-serif;
   }
 
+  a {
+    color: whitesmoke;
+  }
+
   #root{
-    max-width: 960px;
+    // max-width: 1060px;
     margin: 0 auto;
-    padding: 40px 20px;
+    // padding: 40px 20px;
   }
 
   button{
     cursor: pointer;
   }
-`;
+
+  a{
+    text-decoration: none;
+  }
+
+  a.active{
+    color: #270ef0;
+    font-weight: '400';
+  }
+`

@@ -14,13 +14,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
+    "sourceMap": true,
+    "declaration": true,
+    "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
-    "plugins": [
-      {
-        "name": "typescript-styled-plugin"
-      }
-    ]
+    "plugins": []
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "public", "env"]
 }

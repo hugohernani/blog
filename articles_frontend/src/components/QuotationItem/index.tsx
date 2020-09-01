@@ -1,6 +1,7 @@
+import { ButtonContainer, QuotationItemContainer, Title } from './styles'
+
 import React from 'react'
 import ReadMoreButton from '../ReadMoreButton'
-import { QuoteContainer, Title } from './styles'
 
 interface QuoteProps {
   quote: {
@@ -11,10 +12,12 @@ interface QuoteProps {
 
 const QuotationItem: React.FC<QuoteProps> = ({ quote: { content, post_id } }) => {
   return (
-    <QuoteContainer>
+    <QuotationItemContainer>
       <Title>{content}</Title>
-      <ReadMoreButton href={'/posts/' + post_id} content="Read More" />
-    </QuoteContainer>
+      <ButtonContainer>
+        <ReadMoreButton href={'/posts/' + post_id} content="Read More" />
+      </ButtonContainer>
+    </QuotationItemContainer>
   )
 }
 

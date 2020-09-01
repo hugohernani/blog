@@ -1,10 +1,11 @@
-import { useQuery } from '@apollo/client'
-import React from 'react'
+import { CursorBased, connectionGenerateGql } from '../../pagination-types'
 import { Post, PostData } from '../../entities'
-import { PostsPage } from '../../fragments'
-import { connectionGenerateGql, CursorBased } from '../../pagination-types'
-import PostItemPreview from '../PostItemPreview'
+
 import { Container } from './styles'
+import PostItemPreview from '../PostItemPreview'
+import { PostsPage } from '../../fragments'
+import React from 'react'
+import { useQuery } from '@apollo/client'
 
 const GET_POSTS = connectionGenerateGql('Post', PostsPage.fragments.postFields)
 
@@ -25,7 +26,10 @@ const PostsController: React.FC<PostsProps> = ({ PostItemComponent = PostItemPre
 
   return (
     <Container>
-      {postEdges && postEdges.map((postEdge) => postEdge?.node && <PostItemComponent post={postEdge.node} />)}
+      {postEdges &&
+        postEdges.map(
+          (postEdge) => postEdge?.node && <PostItemComponent key={postEdge.node.id} post={postEdge.node} />,
+        )}
     </Container>
   )
 }
