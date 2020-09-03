@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  blog_api:
+    build: .
+    ports:
+      - '3333:3333'
+    volumes:
+      - .:/usr/src/app

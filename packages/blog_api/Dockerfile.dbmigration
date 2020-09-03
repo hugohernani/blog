@@ -1,0 +1,12 @@
+FROM node:12-alpine as base
+
+ENV APP_HOME=/usr/src/app
+ENV HOST_HOME=./
+
+WORKDIR $APP_HOME
+
+RUN apk add --no-cache openssl
+
+COPY $HOST_HOME .
+
+CMD /usr/local/bin/dockerize -wait tcp://blog_db:5432 -timeout 300s -wait-retry-interval 3s /node_modules/.bin/typeorm migration:run -f .env

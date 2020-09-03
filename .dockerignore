@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+.git
+.gitignore
+
+packages/**/node_modules
+packages/**/npm-debug.log
+packages/**/Dockerfile
+packages/**/.dockerignore
+packages/**/.env
+packages/**/.git
+packages/**/.gitignore
