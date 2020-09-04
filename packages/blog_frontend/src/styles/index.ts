@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   *{
@@ -38,7 +38,7 @@ export default createGlobalStyle`
   }
 
   a.active{
-    color: #270ef0;
-    font-weight: '400';
+    color: white;
+    font-weight: '500';
   }
-`
+`;
