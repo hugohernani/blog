@@ -39,6 +39,5 @@ export default createGlobalStyle`
 
   a.active{
     color: white;
-    font-weight: '500';
   }
 `;

@@ -67,8 +67,8 @@ services:
       - dockerfiles/.env.react
     logging: *default-logging
     stdin_open: true
-    depends_on:
-      - blog_api
+    # depends_on:
+    #   - blog_api
     networks:
       - system
       - frontend

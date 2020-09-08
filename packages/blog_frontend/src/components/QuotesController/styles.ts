@@ -1,16 +1,17 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  margin: 1px;
   float: right;
-  bottom: 100px;
 
-  box-shadow: 0px 10px 29px 0px rgba(0,0,0,0.75);
-  -webkit-box-shadow: 0px 10px 29px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 10px 29px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
 
-`
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+`;
 
 export const QuoteContainer = styled.div`
   background-color: #3d8af7;
@@ -29,4 +30,4 @@ export const QuoteContainer = styled.div`
   > div {
     margin: 0 0 0 15px;
   }
-`
+`;

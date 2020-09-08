@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.nav`
   min-height: 40px;
@@ -11,32 +11,23 @@ export const Container = styled.nav`
   justify-content: space-between;
   text-transform: uppercase;
 
-  ${({ theme }) =>
-    theme.navFixed &&
-    css`
-      /* background-color: rgba(#1806aa, 0.78) */
-      position: fixed;
-      width: 100%;
-      z-index: 999;
-    `}
-`;
+  position: fixed;
+  width: 100vw;
+  z-index: 999;
 
-export const LogoContainer = styled.div`
-  a {
-    padding: 5px;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    justify-items: center;
+  > div a {
+    transition: all 0.2s ease-out;
 
-    h3,
-    svg {
-      color: white;
+    &:hover {
+      background-color: #3d8af7ab;
+      padding: 10px 20px !important;
     }
+  }
 
-    h3 {
-      margin-left: 10px;
-    }
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+    flex-flow: column nowrap;
+    font-size: 30px;
   }
 `;
 
@@ -70,5 +61,16 @@ export const LinksContainer = styled.div`
     &:last-of-type {
       margin-right: 0px;
     }
+
+    @media only screen and (max-width: 600px) {
+      font-size: 40px;
+      margin: 2px 0px;
+      padding: 0px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    flex-flow: column;
+    text-align: center;
   }
 `;

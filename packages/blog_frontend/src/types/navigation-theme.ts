@@ -1,6 +1,6 @@
 export interface NavigationTheme {
-  backgroundColor?: string
-  padding?: string
-  margin?: string
-  navFixed?: boolean
+  backgroundColor?: string;
+  padding?: string;
+  margin?: string;
+  scrolling?: boolean;
 }
