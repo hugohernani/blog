@@ -1,24 +1,26 @@
-import { ButtonContainer, QuotationItemContainer, Title } from './styles'
+import { ButtonContainer, QuotationItemContainer, QuoteContainer, QuoteContent } from './styles';
 
-import React from 'react'
-import ReadMoreButton from '../ReadMoreButton'
+import React from 'react';
+import ReadMoreButton from '../ReadMoreButton';
 
 interface QuoteProps {
   quote: {
-    content: string
-    post_id: string
-  }
+    content: string;
+    postId: string;
+  };
 }
 
-const QuotationItem: React.FC<QuoteProps> = ({ quote: { content, post_id } }) => {
+const QuotationItem: React.FC<QuoteProps> = ({ quote: { content, postId } }) => {
   return (
     <QuotationItemContainer>
-      <Title>{content}</Title>
+      <QuoteContainer>
+        <QuoteContent>{content}</QuoteContent>
+      </QuoteContainer>
       <ButtonContainer>
-        <ReadMoreButton href={'/posts/' + post_id} content="Read More" />
+        <ReadMoreButton href={'/posts/' + postId} content="Read More" />
       </ButtonContainer>
     </QuotationItemContainer>
-  )
-}
+  );
+};
 
-export default QuotationItem
+export default QuotationItem;

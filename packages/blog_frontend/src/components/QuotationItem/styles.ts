@@ -1,16 +1,43 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const QuotationItemContainer = styled.div`
   display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  min-height: inherit;
+  min-width: inherit;
   color: #dddddd;
-`
+`;
 
-export const Title = styled.h4`
-  margin: 0 10px 0 0;
-`
+export const QuoteContainer = styled.blockquote`
+  margin: 35px 10px auto 10px;
+
+  &:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    vertical-align: -0.4em;
+  }
+
+  &:after {
+    color: #ccc;
+    content: close-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    vertical-align: -0.25em;
+    display: inline-block;
+    transform: scale(1, -1);
+  }
+`;
+
+export const QuoteContent = styled.p`
+  display: inline;
+`;
 
 export const ButtonContainer = styled.div`
-  margin-left: auto;
-`
+  position: relative;
+  top: 15px;
+  align-self: flex-end;
+  margin-top: auto;
+`;

@@ -12,9 +12,4 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App client={client} />
-  </React.StrictMode>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<App client={client} />, document.getElementById('root'));

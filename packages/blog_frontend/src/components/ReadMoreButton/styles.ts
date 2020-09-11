@@ -1,14 +1,14 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 10px;
-
+  height: 40px;
   > a {
+    text-transform: uppercase;
     background-color: #fbfbfb;
     display: block;
-    padding: 5px 15px;
-    color: #270ef0;
+    padding: 10px 20px;
+    color: black;
     border: 0px;
-    border-radius: 10px;
+    border-radius: 2px;
   }
-`
+`;

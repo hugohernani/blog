@@ -20,18 +20,16 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
-  plugins: [
-    "react-hooks"
-  ],
+  plugins: ['react-hooks'],
   rules: {
     'react/jsx-filename-extension': [
       'error',
       {
-        extension: ['.js', '.jsx'],
+        extensions: ['.ts', '.tsx'],
       },
     ],
     'import/prefer-default-export': 'off',
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
   },
-}
+};
