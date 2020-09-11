@@ -40,4 +40,10 @@ export const ButtonContainer = styled.div`
   top: 15px;
   align-self: flex-end;
   margin-top: auto;
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+  }
 `;

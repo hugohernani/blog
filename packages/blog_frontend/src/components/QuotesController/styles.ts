@@ -7,6 +7,13 @@ export const Container = styled.div`
   max-width: 600px;
   max-height: 400px;
 
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+  }
+
   @media only screen and (max-width: 600px) {
     display: none;
   }
@@ -48,6 +55,16 @@ export const QuoteControlContainer = styled.div`
   right: 10px;
   top: 3px;
   z-index: 2;
+
+  svg {
+    cursor: pointer;
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.2);
+      transition: transform 0.2s ease-in-out;
+    }
+  }
 
   svg ~ svg {
     margin-left: 5px;
