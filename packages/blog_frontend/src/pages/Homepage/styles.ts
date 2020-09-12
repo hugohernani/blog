@@ -23,10 +23,6 @@ export const Banner = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, 50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
 `;
 
 export const Header = styled.h1`
@@ -42,6 +38,12 @@ export const Header = styled.h1`
   &:hover {
     text-shadow: 2px 5px 5px #000;
   }
+`;
+
+export const WordCloudContainer = styled.div`
+  margin: 60px 0px 60px 0px;
+  height: 100%;
+  width: 100%;
 `;
 
 export const BodyContainer = styled.div`

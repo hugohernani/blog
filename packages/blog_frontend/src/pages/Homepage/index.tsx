@@ -10,6 +10,7 @@ import {
   NewsletterMessage,
   NewsletterSection,
   PostsContainer,
+  WordCloudContainer,
 } from './styles';
 
 import NavigationBottom from '../../components/NavigationBottom';
@@ -18,15 +19,17 @@ import NavigationHeader from '../../components/NavigationHeader';
 import PostsController from '../../components/PostsController';
 import QuotesController from '../../components/QuotesController';
 import React from 'react';
+import WordCloud from '../../components/WordCloud';
 
 const Homepage: React.FC = () => {
   return (
     <Container>
       <NavigationHeader backgroundColor="#0c59cf" />
       <BannerSection>
-        <Banner>
-          <Header>Meu Blog</Header>
-        </Banner>
+        <WordCloudContainer>
+          <WordCloud />
+        </WordCloudContainer>
+        <Banner></Banner>
       </BannerSection>
 
       <BodyContainer>
