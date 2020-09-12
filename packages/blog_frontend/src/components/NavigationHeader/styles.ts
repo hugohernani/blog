@@ -15,7 +15,7 @@ export const Container = styled.nav`
   width: 100vw;
   z-index: 999;
 
-  > div a {
+  > div a:not([href*='#']) {
     transition: all 0.2s ease-out;
 
     &:hover {
@@ -72,5 +72,29 @@ export const LinksContainer = styled.div`
   @media only screen and (max-width: 600px) {
     flex-flow: column;
     text-align: center;
+  }
+`;
+
+export const MoveDownContainer = styled.div`
+  display: block;
+  position: fixed;
+  left: 50%;
+  right: 50%;
+  bottom: -10px;
+  opacity: 0.85;
+
+  animation: updown 1s linear infinite alternate;
+
+  @keyframes updown {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(0, 20px);
+  }
+
+  80% {
+    transform: translate(0, -20px);
   }
 `;

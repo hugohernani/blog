@@ -39,6 +39,7 @@ const WordCloud: React.FC = () => {
       svgAttributes: {
         role: 'list',
       },
+      transitionDuration: 300,
     }),
     [rangeColors],
   );
@@ -54,6 +55,7 @@ const WordCloud: React.FC = () => {
         }
         const _rangeColors = rangeColors.filter((c) => c !== d3Element.attr('defaultColor'));
         d3Element
+          .interrupt()
           .transition()
           .attr(
             'fill',

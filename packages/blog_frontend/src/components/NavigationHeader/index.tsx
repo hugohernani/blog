@@ -1,8 +1,9 @@
-import { Container, LinksContainer } from './styles';
+import { Container, LinksContainer, MoveDownContainer } from './styles';
+import { Link, NavLink } from 'react-router-dom';
 import React, { useMemo, useState } from 'react';
 
+import { FaAngleDoubleDown } from 'react-icons/fa';
 import LogoView from '../LogoView';
-import { NavLink } from 'react-router-dom';
 import { NavigationTheme } from '../../types';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 
@@ -25,11 +26,15 @@ const NavigationHeader: React.FC<NavigationTheme> = (props) => {
     ({ prevPos, currPos }) => {
       const fixedPosition = currPos.y < prevPos.y;
       if (fixedPosition && !theme.scrolling) {
-        // is AT fixed position but position: fixed not applyed yet
-        setTheme({ ...theme, ...props, ...fixedDefaultStyle });
+        setTheme((prevTheme) => ({
+          ...prevTheme,
+          ...fixedDefaultStyle,
+        }));
       } else if (theme.scrolling && currPos.y === 0) {
-        // it went back to top position
-        setTheme({ ...theme, ...defaultStyle, ...props });
+        setTheme((prevTheme) => ({
+          ...prevTheme,
+          ...defaultStyle,
+        }));
       }
     },
     [theme], // deps
@@ -46,6 +51,13 @@ const NavigationHeader: React.FC<NavigationTheme> = (props) => {
           <NavLink to="/">Blog</NavLink>
           <NavLink to="/sobre">Sobre</NavLink>
         </LinksContainer>
+        {theme.jumpArrowOptions && !theme.scrolling && (
+          <MoveDownContainer>
+            <Link to={{ pathname: '/', hash: theme.jumpArrowOptions.goTo }}>
+              <FaAngleDoubleDown size="80px" color="white" />
+            </Link>
+          </MoveDownContainer>
+        )}
       </Container>
     ),
     [theme],

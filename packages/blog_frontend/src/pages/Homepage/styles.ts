@@ -41,7 +41,7 @@ export const Header = styled.h1`
 `;
 
 export const WordCloudContainer = styled.div`
-  margin: 60px 0px 60px 0px;
+  margin: 40px 0px 100px 0px;
   height: 100%;
   width: 100%;
 `;
