@@ -1,8 +1,11 @@
 import { CursorBased, connectionGenerateGql } from '../../pagination-types';
 import { Post, PostData } from '../../entities';
 
-import { Container } from './styles';
+import ApolloError from '../ApolloError';
+import { CursorConnection } from '../../pagination-types';
+import Loader from '../Loader';
 import PostItemPreview from '../PostItemPreview';
+import PostList from './PostList';
 import { PostsPage } from '../../fragments';
 import React from 'react';
 import { useQuery } from '@apollo/client';
@@ -14,24 +17,19 @@ interface PostProps {
 }
 
 interface PostsProps {
-  PostItemComponent?: React.FC<PostProps>;
+  postItemComponent?: React.FC<PostProps>;
 }
 
-const PostsController: React.FC<PostsProps> = ({ PostItemComponent = PostItemPreview }) => {
+const PostsController: React.FC<PostsProps> = ({ postItemComponent = PostItemPreview }) => {
   const { loading, error, data } = useQuery<PostData, CursorBased<Post>>(GET_POSTS);
 
-  const postEdges = data?.posts?.edges;
-
-  if (loading) return <span>Loading...</span>;
-  if (error) return <span>Error ${error.message}</span>;
-  return (
-    <Container>
-      {postEdges &&
-        postEdges.map(
-          (postEdge) => postEdge?.node && <PostItemComponent key={postEdge.node.id} post={postEdge.node} />,
-        )}
-    </Container>
-  );
+  if (loading) {
+    return <Loader />;
+  } else if (error) {
+    return <ApolloError error={error} />;
+  } else {
+    return <PostList posts={data?.posts as CursorConnection<Post>} PostItemComponent={postItemComponent} />;
+  }
 };
 
 export default PostsController;
