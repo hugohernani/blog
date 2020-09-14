@@ -3,14 +3,15 @@ import styled from 'styled-components';
 export const QuotationItemContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   min-height: inherit;
   min-width: inherit;
   color: #dddddd;
 `;
 
 export const QuoteContainer = styled.blockquote`
-  margin: 35px 10px auto 10px;
+  text-align: center;
 
   &:before {
     color: #ccc;
@@ -32,14 +33,14 @@ export const QuoteContainer = styled.blockquote`
 `;
 
 export const QuoteContent = styled.p`
+  font-size: 6vh;
   display: inline;
 `;
 
 export const ButtonContainer = styled.div`
-  position: relative;
-  top: 15px;
-  align-self: flex-end;
-  margin-top: auto;
+  position: absolute;
+  bottom: -25px;
+  right: 0px;
   transform: scale(1);
 
   &:hover {

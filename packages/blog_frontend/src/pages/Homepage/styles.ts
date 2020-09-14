@@ -52,7 +52,7 @@ export const BodyContainer = styled.div`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  margin-top: 100px;
+  margin-top: 200px;
 
   /* For testing only */
   min-height: 1200px;
@@ -64,7 +64,7 @@ export const BodyContainer = styled.div`
 
 export const PostsContainer = styled.section`
   position: relative;
-  top: -50px;
+  top: -45px;
   margin: 0px 100px;
   background-color: white;
   min-height: 800px;

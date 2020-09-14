@@ -17,7 +17,7 @@ const QuotationItem: React.FC<QuoteProps> = ({ quote: { content, postId } }) => 
         <QuoteContent>{content}</QuoteContent>
       </QuoteContainer>
       <ButtonContainer>
-        <ReadMoreButton href={'/posts/' + postId} content="Read More" />
+        <ReadMoreButton href={'/posts/' + postId} content="Leia Mais" />
       </ButtonContainer>
     </QuotationItemContainer>
   );

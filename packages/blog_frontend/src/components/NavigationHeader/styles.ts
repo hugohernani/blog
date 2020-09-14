@@ -5,6 +5,7 @@ export const Container = styled.nav`
   background-color: ${(props) => props.theme.backgroundColor + 'e0'};
   padding: ${(props) => props.theme.padding};
   margin: ${(props) => props.theme.margin};
+  opacity: ${(props) => props.theme.opacity};
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -14,6 +15,12 @@ export const Container = styled.nav`
   position: fixed;
   width: 100vw;
   z-index: 999;
+
+  transition: opacity 0.2s ease-out;
+
+  &:hover {
+    opacity: 1;
+  }
 
   > div a:not([href*='#']) {
     transition: all 0.2s ease-out;

@@ -4,17 +4,19 @@ import React, { useMemo, useState } from 'react';
 
 import { FaAngleDoubleDown } from 'react-icons/fa';
 import LogoView from '../LogoView';
-import { NavigationTheme } from '../../types';
+import { NavigationTheme } from '../../project-types';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 
 const defaultStyle: NavigationTheme = {
   backgroundColor: 'transparent',
-  padding: '25px 120px',
+  padding: '8px 120px',
   scrolling: false,
+  opacity: 1,
 };
 
 const fixedDefaultStyle: NavigationTheme = {
-  padding: '25px 120px',
+  opacity: 0,
+  padding: '8px 120px',
   backgroundColor: '#270ef0',
   scrolling: true,
 };

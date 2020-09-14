@@ -2,7 +2,7 @@ import { FaInstagram, FaMailBulk } from 'react-icons/fa';
 import React, { useMemo } from 'react';
 
 import { Container } from './styles';
-import { FontAwesomeOptions } from '../../types';
+import { FontAwesomeOptions } from '../../project-types';
 
 export interface ThemeProps {
   contentColor?: string;

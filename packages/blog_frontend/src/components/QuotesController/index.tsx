@@ -1,7 +1,7 @@
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Container, QuoteContainer, QuoteControlContainer } from './styles';
 import { FaRegArrowAltCircleLeft, FaRegArrowAltCircleRight } from 'react-icons/fa';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import QuotationItem from '../QuotationItem';
 
@@ -15,7 +15,11 @@ interface CurrentQuoteSettings {
   moveSide: string;
 }
 
-const QuotesController: React.FC = () => {
+interface QuotesProps {
+  sliderTimer?: number;
+}
+
+const QuotesController: React.FC<QuotesProps> = ({ sliderTimer = 5000 }) => {
   const [currentQuoteSettings, setCurrentQuoteSettings] = useState<CurrentQuoteSettings>({
     position: 0,
     moveSide: 'right',
@@ -33,6 +37,7 @@ const QuotesController: React.FC = () => {
     ];
     return _quotes;
   });
+  const [automaticSlider, setAutomaticSlider] = useState<boolean>(true);
 
   const updatePosition = useCallback(
     (prevPosition: number, moveSide: string, calcFn: (pos: number) => number) => {
@@ -42,20 +47,38 @@ const QuotesController: React.FC = () => {
     [quotes.length],
   );
 
-  const nextQuotePosition = useCallback(() => {
-    updatePosition(currentQuoteSettings.position, 'right', (pos) => pos + 1);
-  }, [currentQuoteSettings.position, updatePosition]);
+  const nextQuotePosition = useCallback(
+    (disableAutomaticSlider = false) => {
+      if (disableAutomaticSlider) {
+        setAutomaticSlider(false);
+      }
+      updatePosition(currentQuoteSettings.position, 'right', (pos) => pos + 1);
+    },
+    [currentQuoteSettings.position, updatePosition],
+  );
 
   const prevQuotePosition = useCallback(() => {
     updatePosition(currentQuoteSettings.position, 'left', (pos) => pos - 1);
   }, [currentQuoteSettings.position, updatePosition]);
 
+  useEffect(() => {
+    if (automaticSlider) {
+      const timerId = setTimeout(() => {
+        nextQuotePosition(false);
+      }, sliderTimer);
+      return () => {
+        console.log('here');
+        clearTimeout(timerId);
+      };
+    }
+  }, [nextQuotePosition, sliderTimer]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return useMemo(
     () => (
       <Container>
         <QuoteControlContainer>
-          <FaRegArrowAltCircleLeft size="30px" color="white" onClick={prevQuotePosition} />
-          <FaRegArrowAltCircleRight size="30px" color="white" onClick={nextQuotePosition} />
+          <FaRegArrowAltCircleLeft size="40px" color="white" onClick={prevQuotePosition} />
+          <FaRegArrowAltCircleRight size="40px" color="white" onClick={nextQuotePosition} />
         </QuoteControlContainer>
         <TransitionGroup className="quote-container">
           <CSSTransition

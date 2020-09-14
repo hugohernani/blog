@@ -4,7 +4,7 @@ import { Post, PostData } from '../../entities';
 import ApolloError from '../ApolloError';
 import { CursorConnection } from '../../pagination-types';
 import Loader from '../Loader';
-import PostItemPreview from '../PostItemPreview';
+import PostItemPreview from './PostItemPreview';
 import PostList from './PostList';
 import { PostsPage } from '../../fragments';
 import React from 'react';
@@ -21,7 +21,14 @@ interface PostsProps {
 }
 
 const PostsController: React.FC<PostsProps> = ({ postItemComponent = PostItemPreview }) => {
-  const { loading, error, data } = useQuery<PostData, CursorBased<Post>>(GET_POSTS);
+  const { loading, error, data } = useQuery<PostData, CursorBased<Post>>(GET_POSTS, {
+    variables: {
+      sorting: {
+        field: 'createdAt',
+        direction: 'DESC',
+      },
+    },
+  });
 
   if (loading) {
     return <Loader />;

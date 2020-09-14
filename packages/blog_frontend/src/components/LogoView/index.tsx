@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { Container } from './styles';
 import { FaWarehouse } from 'react-icons/fa';
-import { FontAwesomeOptions } from '../../types';
+import { FontAwesomeOptions } from '../../project-types';
 import { Link } from 'react-router-dom';
 
 export interface ThemeProps {

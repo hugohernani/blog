@@ -3,11 +3,12 @@ import { gql } from '@apollo/client';
 export class PostsPage {
   static fragments = {
     postFields: gql`
-      fragment PostFields on Post{
+      fragment PostFields on Post {
         id
         title
         content
+        createdAt
       }
-    `
-  }
+    `,
+  };
 }

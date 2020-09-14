@@ -3,10 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
   float: right;
+  margin-left: 2px;
+  margin-bottom: 20px;
 
   max-width: 600px;
   max-height: 400px;
 
+  bottom: 130px;
   transform: scale(1);
 
   &:hover {
@@ -20,9 +23,14 @@ export const Container = styled.div`
 `;
 
 export const QuoteContainer = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
   background-color: #3d8af7;
-  min-height: 150px;
-  min-width: 400px;
+  height: 180px;
+  min-width: 600px;
+  max-width: 800px;
 
   box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
@@ -52,11 +60,13 @@ export const QuoteContainer = styled.div`
 
 export const QuoteControlContainer = styled.div`
   position: absolute;
-  right: 10px;
-  top: 3px;
+  right: 0px;
+  top: -25px;
   z-index: 2;
 
   svg {
+    background-color: #3d8af7;
+    border-radius: 100%;
     cursor: pointer;
     transform: scale(1);
 
@@ -67,6 +77,6 @@ export const QuoteControlContainer = styled.div`
   }
 
   svg ~ svg {
-    margin-left: 5px;
+    margin-left: 2px;
   }
 `;

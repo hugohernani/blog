@@ -12,7 +12,7 @@ import {
   PostsContainer,
   WordCloudContainer,
 } from './styles';
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import NavigationBottom from '../../components/NavigationBottom';
 import NavigationHeader from '../../components/NavigationHeader';
@@ -26,24 +26,34 @@ type SectionRef<T> = Record<string, React.RefObject<T | undefined>>;
 
 const Homepage: React.FC = () => {
   const { hash } = useLocation();
-  const postsContainerRef = useRef<HTMLDivElement>(null);
+  const articlesContent = useRef<HTMLDivElement>(null);
   const [sections] = useState<SectionRef<HTMLDivElement>>(() => ({
-    '#posts': postsContainerRef,
+    '#articles': articlesContent,
   }));
 
+  const validateHash = useCallback((): boolean => {
+    const availableHashSections = ['#articles'];
+    if (hash !== '' && availableHashSections.indexOf(hash) !== -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [hash]);
+
   useLayoutEffect(() => {
-    if (hash !== '') {
+    if (validateHash()) {
       const refElement = sections[hash];
       refElement.current &&
         refElement.current.scrollIntoView({
           behavior: 'smooth',
+          block: 'start',
         });
     }
   });
 
   return (
     <Container>
-      <NavigationHeader backgroundColor="#0c59cf" jumpArrowOptions={{ goTo: '#posts' }} />
+      <NavigationHeader backgroundColor="#0c59cf" jumpArrowOptions={{ goTo: '#articles' }} />
       <BannerSection>
         <WordCloudContainer>
           <WordCloud />
@@ -51,8 +61,8 @@ const Homepage: React.FC = () => {
         <Banner></Banner>
       </BannerSection>
 
-      <BodyContainer>
-        <PostsContainer ref={postsContainerRef} id="posts">
+      <BodyContainer id="articles" ref={articlesContent}>
+        <PostsContainer>
           <QuotesController />
 
           <PostsController />
