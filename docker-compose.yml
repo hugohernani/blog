@@ -33,7 +33,7 @@ services:
     ports:
       - '${BLOG_API_APP_EXPOSED_PORT}:${BLOG_API_APP_EXPOSED_PORT}'
     volumes:
-      - ./common:/usr/common:ro
+      - ./common:/usr/common
       - ./packages/blog_api:/usr/src/app
       - ./node_modules:/usr/src/app/node_modules
     env_file:

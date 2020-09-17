@@ -1,17 +1,18 @@
-import { gql, DocumentNode } from '@apollo/client'
-import { capitalize, lowerCase } from 'lodash'
-import { plural, singular } from 'pluralize'
+import { DocumentNode, gql } from '@apollo/client';
+import { camelCase, startCase } from 'lodash';
 
-export const connectionGenerateGql = (entityName: string, fieldsFragment: DocumentNode) => {
-  const pluralEntityName = plural(entityName)
-  const singularEntityName = singular(entityName)
-  const capitalizedpluralEntityName = capitalize(pluralEntityName)
-  const capitalizedSingularEntityName = capitalize(singularEntityName)
-  const lowerPluralEntityName = lowerCase(pluralEntityName)
+export const connectionGenerateGql = (
+  endpoint: string,
+  entityName: string,
+  fieldsFragment: DocumentNode,
+): DocumentNode => {
+  const capitalizedEndpoint = startCase(endpoint).replace(/ /g, '');
+  const camelCaseEndpoint = camelCase(capitalizedEndpoint);
+  const capitalizedSingularEntityName = startCase(entityName).replace(/ /g, '');
 
   return gql`
-    query Get${capitalizedpluralEntityName}($paging: CursorPaging, $filter: ${capitalizedSingularEntityName}Filter, $sorting: [${capitalizedSingularEntityName}Sort!]){
-      ${lowerPluralEntityName}(paging: $paging, filter: $filter, sorting: $sorting) {
+    query Get${capitalizedEndpoint}($paging: CursorPaging, $filter: ${capitalizedSingularEntityName}Filter, $sorting: [${capitalizedSingularEntityName}Sort!]){
+      ${camelCaseEndpoint}(paging: $paging, filter: $filter, sorting: $sorting) {
         edges {
           node {
             ...${capitalizedSingularEntityName}Fields
@@ -20,5 +21,5 @@ export const connectionGenerateGql = (entityName: string, fieldsFragment: Docume
       }
     }
     ${fieldsFragment}
-  `
-}
+  `;
+};
