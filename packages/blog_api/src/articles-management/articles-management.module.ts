@@ -6,9 +6,15 @@ import {
 } from '@nestjs-query/query-graphql'
 import { SortDirection, SortField } from '@nestjs-query/core'
 
+import { GraphQLModule }  from "@nestjs/graphql";
 import { Module } from '@nestjs/common'
 import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm'
+import { PostAssembler } from './assemblers'
+import { PostResolver } from './resolvers/post.resolver'
+import { PostService } from './services'
+import { TruncateDirective } from '../directives';
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { join } from "path";
 
 const createdDefaultSort: SortField<PostEntity> = {
   field: 'createdAt',
@@ -26,20 +32,21 @@ const defaultReadSort = { defaultSort: [createdDefaultSort] }
           AuthorEntity,
           PostEntity,
           CommentEntity,
-        ]),
+        ])
       ],
+      assemblers: [PostAssembler],
+      // services: [PostService],
       resolvers: [
         {
           DTOClass: AuthorDTO,
           EntityClass: AuthorEntity,
         },
-        {
-          DTOClass: PostDTO,
-          EntityClass: PostEntity,
-          read: {
-            ...defaultReadSort,
-          } as ReadResolverOpts<unknown>,
-        },
+        // {
+        //   DTOClass: PostDTO,
+        //   EntityClass: PostEntity,
+        //   AssemblerClass: PostAssembler,
+        //   ServiceClass: PostService,
+        // },
         {
           DTOClass: CommentDTO,
           EntityClass: CommentEntity,
@@ -47,5 +54,6 @@ const defaultReadSort = { defaultSort: [createdDefaultSort] }
       ],
     }),
   ],
+  providers: [PostService, PostResolver],
 })
 export class ArticlesManagementModule {}
