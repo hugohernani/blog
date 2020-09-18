@@ -11,6 +11,7 @@ import {
 import { PostStatus } from './enums';
 import { AuthorEntity } from './author.entity';
 import { CommentEntity } from './comment.entity';
+import PostFileEntity from './postFile.entity';
 
 @Entity('post')
 export class PostEntity {
@@ -45,4 +46,7 @@ export class PostEntity {
 
   @OneToMany(() => CommentEntity, (comment) => comment.post)
   comments: CommentEntity[];
+
+  @OneToMany(() => PostFileEntity, (postFile) => postFile.post)
+  postFiles: PostFileEntity[];
 }

@@ -274,6 +274,7 @@ input CreateOnePostInput {
 input CreatePost {
   content: String
   createdAt: DateTime
+  file: Upload
   id: String
   readingTime: Int
   status: String
@@ -394,6 +395,7 @@ type Post {
   ): PostCommentsConnection!
   content: String!
   createdAt: DateTime!
+  file: Upload
   id: String!
   readingTime: Int
   status: String!
@@ -441,6 +443,7 @@ input PostDeleteFilter {
 type PostDeleteResponse {
   content: String
   createdAt: DateTime
+  file: Upload
   id: String
   readingTime: Int
   status: String
@@ -671,9 +674,13 @@ input UpdateOnePostInput {
 input UpdatePost {
   content: String
   createdAt: DateTime
+  file: Upload
   id: String
   readingTime: Int
   status: String
   title: String
   updatedAt: DateTime
 }
+
+"""File upload scalar type"""
+scalar Upload
