@@ -10,6 +10,8 @@ import {
 import { AuthorDTO } from './author.dto';
 import { CommentDTO } from './comment.dto';
 import readingTime = require('reading-time');
+import { Upload } from 'src/scalars/upload.scalar';
+import { Exclude } from 'class-transformer/decorators';
 
 @ObjectType('Post')
 @FilterableRelation('author', () => AuthorDTO, {
@@ -54,6 +56,10 @@ export class PostDTO {
 
   @Field(() => GraphQLISODateTime)
   updatedAt: Date;
+
+  @Field({ nullable: true })
+  @Exclude()
+  file: Upload;
 
   // @FilterableField()
   // authorId!: string
