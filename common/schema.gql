@@ -65,8 +65,8 @@ input AuthorFilter {
 
 input AuthorFilterPostFilter {
   and: [AuthorFilterPostFilter!]
-  authorId: StringFieldComparison
   content: StringFieldComparison
+  createdAt: DateFieldComparison
   id: StringFieldComparison
   or: [AuthorFilterPostFilter!]
   status: StringFieldComparison
@@ -179,8 +179,8 @@ input CommentFilter {
 
 input CommentFilterPostFilter {
   and: [CommentFilterPostFilter!]
-  authorId: StringFieldComparison
   content: StringFieldComparison
+  createdAt: DateFieldComparison
   id: StringFieldComparison
   or: [CommentFilterPostFilter!]
   status: StringFieldComparison
@@ -272,10 +272,10 @@ input CreateOnePostInput {
 }
 
 input CreatePost {
-  authorId: String
   content: String
   createdAt: DateTime
   id: String
+  readingTime: Int
   status: String
   title: String
   updatedAt: DateTime
@@ -293,6 +293,26 @@ input CursorPaging {
 
   """Paginate last"""
   last: Int
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
 }
 
 """
@@ -362,7 +382,6 @@ type PageInfo {
 
 type Post {
   author: Author!
-  authorId: String!
   comments(
     """Specify to filter the records returned."""
     filter: CommentFilter = {}
@@ -376,6 +395,7 @@ type Post {
   content: String!
   createdAt: DateTime!
   id: String!
+  readingTime: Int
   status: String!
   title: String!
   updatedAt: DateTime!
@@ -401,8 +421,8 @@ type PostConnection {
 }
 
 type PostCountAggregate {
-  authorId: Int
   content: Int
+  createdAt: Int
   id: Int
   status: Int
   title: Int
@@ -410,8 +430,8 @@ type PostCountAggregate {
 
 input PostDeleteFilter {
   and: [PostDeleteFilter!]
-  authorId: StringFieldComparison
   content: StringFieldComparison
+  createdAt: DateFieldComparison
   id: StringFieldComparison
   or: [PostDeleteFilter!]
   status: StringFieldComparison
@@ -419,10 +439,10 @@ input PostDeleteFilter {
 }
 
 type PostDeleteResponse {
-  authorId: String
   content: String
   createdAt: DateTime
   id: String
+  readingTime: Int
   status: String
   title: String
   updatedAt: DateTime
@@ -439,9 +459,9 @@ type PostEdge {
 input PostFilter {
   and: [PostFilter!]
   author: PostFilterAuthorFilter
-  authorId: StringFieldComparison
   comments: PostFilterCommentFilter
   content: StringFieldComparison
+  createdAt: DateFieldComparison
   id: StringFieldComparison
   or: [PostFilter!]
   status: StringFieldComparison
@@ -466,16 +486,16 @@ input PostFilterCommentFilter {
 }
 
 type PostMaxAggregate {
-  authorId: String
   content: String
+  createdAt: DateTime
   id: String
   status: String
   title: String
 }
 
 type PostMinAggregate {
-  authorId: String
   content: String
+  createdAt: DateTime
   id: String
   status: String
   title: String
@@ -488,8 +508,8 @@ input PostSort {
 }
 
 enum PostSortFields {
-  authorId
   content
+  createdAt
   id
   status
   title
@@ -497,8 +517,8 @@ enum PostSortFields {
 
 input PostUpdateFilter {
   and: [PostUpdateFilter!]
-  authorId: StringFieldComparison
   content: StringFieldComparison
+  createdAt: DateFieldComparison
   id: StringFieldComparison
   or: [PostUpdateFilter!]
   status: StringFieldComparison
@@ -530,6 +550,16 @@ type Query {
   ): CommentConnection!
   post(id: ID!): Post
   posts(
+    """Specify to filter the records returned."""
+    filter: PostFilter = {}
+
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to sort results."""
+    sorting: [PostSort!] = []
+  ): PostConnection!
+  truncatedPosts(
     """Specify to filter the records returned."""
     filter: PostFilter = {}
 
@@ -639,10 +669,10 @@ input UpdateOnePostInput {
 }
 
 input UpdatePost {
-  authorId: String
   content: String
   createdAt: DateTime
   id: String
+  readingTime: Int
   status: String
   title: String
   updatedAt: DateTime

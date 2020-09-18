@@ -10,7 +10,7 @@ import { join } from 'path';
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), '..', 'common', 'schema.gql'),
+      autoSchemaFile: join(process.cwd(), '..', '..', '..', 'common', 'schema.gql'),
       sortSchema: true,
       debug: true,
       playground: true,
