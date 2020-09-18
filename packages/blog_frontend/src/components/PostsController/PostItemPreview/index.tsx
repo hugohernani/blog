@@ -14,12 +14,13 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { Post } from '../../../entities';
 import ReadMoreButton from '../../ReadMoreButton';
+import moment from 'moment';
 
 interface PostProps {
   post: Post;
 }
 
-const PostItemPreview: React.FC<PostProps> = ({ post: { id, title, content, createdAt } }) => {
+const PostItemPreview: React.FC<PostProps> = ({ post: { id, title, content, createdAt, readingTime = null } }) => {
   const [formattedCreatedAtDate] = useState(() => {
     const createdAtDate = new Date(createdAt);
     return createdAtDate.toLocaleDateString('pt-BR', {
@@ -27,6 +28,14 @@ const PostItemPreview: React.FC<PostProps> = ({ post: { id, title, content, crea
       month: 'long',
       day: 'numeric',
     });
+  });
+
+  const [formattedReadTime] = useState<string | null>(() => {
+    if (readingTime) {
+      const readingTimeDuration = moment.duration(readingTime);
+      return `${readingTimeDuration.minutes()} min de leitura`;
+    }
+    return null;
   });
 
   // TODO use axios + https://palett.es/api to get random pallete
@@ -44,7 +53,7 @@ const PostItemPreview: React.FC<PostProps> = ({ post: { id, title, content, crea
         <Header>{title}</Header>
         <PostInfoContainer>
           <PostDate>{formattedCreatedAtDate}</PostDate>
-          <PostReadTime>9 min de leitura</PostReadTime>
+          {formattedReadTime && <PostReadTime>{formattedReadTime}</PostReadTime>}
         </PostInfoContainer>
         <PostTagsContainer>{postTags()}</PostTagsContainer>
         <ContentSection>
@@ -53,11 +62,10 @@ const PostItemPreview: React.FC<PostProps> = ({ post: { id, title, content, crea
         <ReadButtonContainer>
           <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
         </ReadButtonContainer>
-
         <hr />
       </Container>
     ),
-    [id, title, content, formattedCreatedAtDate, postTags],
+    [title, formattedCreatedAtDate, formattedReadTime, postTags, content, id],
   );
 };
 

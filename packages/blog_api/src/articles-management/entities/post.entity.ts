@@ -7,40 +7,42 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm'
-import { ObjectType, Field } from '@nestjs/graphql'
+} from 'typeorm';
 import { PostStatus } from './enums';
 import { AuthorEntity } from './author.entity';
 import { CommentEntity } from './comment.entity';
 
-@Entity("post")
+@Entity('post')
 export class PostEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Column()
-  title: string
+  title: string;
 
-  @Column('text', {nullable: false })
-  content: string
+  @Column('text', { nullable: false })
+  content: string;
 
   @Column({
     type: 'enum',
     enum: PostStatus,
-    default: PostStatus.DRAFT
+    default: PostStatus.DRAFT,
   })
-  status: string
+  status: string;
+
+  @Column({ nullable: true })
+  readingTime: number;
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
-  createdAt: Date
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp', nullable: false })
-  updatedAt: Date
+  updatedAt: Date;
 
-  @ManyToOne(() => AuthorEntity, author => author.posts)
-  @JoinColumn({name: 'authorId'})
+  @ManyToOne(() => AuthorEntity, (author) => author.posts)
+  @JoinColumn({ name: 'authorId' })
   author: AuthorEntity;
 
-  @OneToMany(() => CommentEntity, comment => comment.post)
+  @OneToMany(() => CommentEntity, (comment) => comment.post)
   comments: CommentEntity[];
 }

@@ -12,3 +12,5 @@ export const Header = styled.h1`
 
   font-size: 50px;
 `;
+
+export const PostsContainer = styled.div``;

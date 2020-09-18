@@ -7,6 +7,7 @@ export class PostsPage {
         id
         title
         content
+        readingTime
         createdAt
       }
     `,

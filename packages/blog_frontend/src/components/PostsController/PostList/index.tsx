@@ -1,4 +1,4 @@
-import { Container, Header } from './styles';
+import { Container, PostsContainer, Header } from './styles';
 
 import { CursorConnection } from '../../../pagination-types';
 import { Post } from '../../../entities';
@@ -19,10 +19,13 @@ const PostList: React.FC<PostListProps> = ({ listPageTitle = 'Artigos mais recen
   return (
     <Container>
       <Header>{listPageTitle}</Header>
-      {postEdges &&
-        postEdges.map(
-          (postEdge) => postEdge?.node && <PostItemComponent key={postEdge.node.id} post={postEdge.node} />,
-        )}
+      {postEdges && (
+        <PostsContainer>
+          {postEdges.map(
+            (postEdge) => postEdge?.node && <PostItemComponent key={postEdge.node.id} post={postEdge.node} />,
+          )}
+        </PostsContainer>
+      )}
     </Container>
   );
 };

@@ -5,8 +5,13 @@ import { PostDTO } from '../dto';
 import { PostConnection, PostQuery } from './types.post';
 import { PostService } from '../services';
 
+// const createdDefaultSort: SortField<PostDTO> = {
+//   field: 'createdAt',
+//   direction: SortDirection.DESC,
+// };
+//
 @Resolver(() => PostDTO)
-export class PostResolver extends CRUDResolver(PostDTO) {
+export class PostResolver extends CRUDResolver(PostDTO, {}) {
   constructor(
     @Inject(PostService)
     readonly service: PostService,

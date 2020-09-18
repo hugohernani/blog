@@ -24,6 +24,7 @@ export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
     dto.title = entity.title;
     dto.content = entity.content;
     dto.status = entity.status;
+    dto.readingTime = entity.readingTime;
     dto.createdAt = entity.createdAt;
     dto.updatedAt = entity.updatedAt;
     return dto;
@@ -35,6 +36,7 @@ export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
     entity.title = dto.title;
     entity.content = dto.content;
     entity.status = dto.status;
+    entity.readingTime = dto.readingTime;
     entity.createdAt = dto.createdAt;
     entity.updatedAt = dto.updatedAt;
     return entity;
