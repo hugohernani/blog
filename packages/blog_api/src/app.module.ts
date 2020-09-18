@@ -6,6 +6,7 @@ import { Module } from '@nestjs/common';
 // import { TruncateDirective } from './directives';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { Upload } from './scalars/upload.scalar';
 
 @Module({
   imports: [
@@ -15,6 +16,10 @@ import { join } from 'path';
       debug: true,
       playground: true,
       installSubscriptionHandlers: true,
+      uploads: {
+        maxFileSize: 20000000, // 20 MB
+        maxFiles: 5,
+      },
       // schemaDirectives: {
       //   truncate: TruncateDirective
       // }
@@ -23,6 +28,6 @@ import { join } from 'path';
     ArticlesManagementModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Upload],
 })
 export class AppModule {}
