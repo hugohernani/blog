@@ -1,4 +1,4 @@
-import { FaInstagram, FaMailBulk } from 'react-icons/fa';
+import { FaInstagram, FaMailBulk, FaGithub } from 'react-icons/fa';
 import React, { useMemo } from 'react';
 
 import { Container } from './styles';
@@ -14,6 +14,9 @@ const SocialLinks: React.FC<SocialLinksProps> = ({ smallIconSize, ...theme } = {
   return useMemo(
     () => (
       <Container theme={theme}>
+        <a href="https://github.com/hugohernani" target="_blank" rel="noopener noreferrer">
+          <FaGithub size={smallIconSize} />
+        </a>
         <a href="https://www.instagram.com/hugo.hernani/" target="_blank" rel="noopener noreferrer">
           <FaInstagram size={smallIconSize} />
         </a>

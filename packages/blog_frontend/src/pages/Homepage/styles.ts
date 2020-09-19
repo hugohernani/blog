@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100%;
+  height: 100vh;
 
   display: flex;
-  justify-content: flex-start;
   flex-flow: column;
 `;
 
@@ -81,7 +80,6 @@ export const PostsContainer = styled.section`
 export const FooterContainer = styled.section`
   position: relative;
   background-color: inherit;
-  min-height: 400px;
 `;
 
 export const NewsletterSection = styled.section`

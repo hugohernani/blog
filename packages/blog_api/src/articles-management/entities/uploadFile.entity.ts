@@ -1,5 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { PostEntity } from '.';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import PostFileEntity from './postFile.entity';
 
 @Entity()

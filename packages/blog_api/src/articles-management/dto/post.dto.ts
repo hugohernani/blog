@@ -1,7 +1,6 @@
 import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
 import {
   BeforeCreateOne,
-  CreateOneInputType,
   FilterableConnection,
   FilterableField,
   FilterableRelation,
@@ -9,31 +8,20 @@ import {
 
 import { AuthorDTO } from './author.dto';
 import { CommentDTO } from './comment.dto';
-import readingTime = require('reading-time');
 import { Upload } from 'src/scalars/upload.scalar';
 import { Exclude } from 'class-transformer/decorators';
+import { beforeCreatePost } from '../dto-hooks';
+
+const commonFilterableRelationOpts = {
+  disableRemove: true,
+  enableTotalCount: true,
+  disableUpdate: true,
+};
 
 @ObjectType('Post')
-@FilterableRelation('author', () => AuthorDTO, {
-  disableRemove: true,
-  enableTotalCount: true,
-  disableUpdate: true,
-})
-@FilterableConnection('comments', () => CommentDTO, {
-  disableRemove: true,
-  enableTotalCount: true,
-  disableUpdate: true,
-})
-// eslint-disable-next-line @typescript-eslint/no-use-before-define
-@BeforeCreateOne((createInput: CreateOneInputType<PostDTO>) => {
-  const {
-    input: { content, readingTime: readTime },
-  } = createInput;
-  if (readTime === undefined) {
-    createInput.input.readingTime = readingTime(content).time;
-  }
-  return createInput;
-})
+@FilterableRelation('author', () => AuthorDTO, commonFilterableRelationOpts)
+@FilterableConnection('comments', () => CommentDTO, commonFilterableRelationOpts)
+@BeforeCreateOne(beforeCreatePost)
 export class PostDTO {
   @FilterableField()
   id!: string;
@@ -60,6 +48,9 @@ export class PostDTO {
   @Field({ nullable: true })
   @Exclude()
   file: Upload;
+
+  @Field({ nullable: true })
+  fileUrl: string;
 
   // @FilterableField()
   // authorId!: string

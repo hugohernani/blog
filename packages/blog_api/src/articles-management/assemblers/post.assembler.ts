@@ -25,6 +25,8 @@ export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
     dto.content = entity.content;
     dto.status = entity.status;
     dto.readingTime = entity.readingTime;
+    // TODO: Include fileUrl
+    dto.fileUrl = this.entityMainFleUrl(entity);
     dto.createdAt = entity.createdAt;
     dto.updatedAt = entity.updatedAt;
     return dto;
@@ -37,6 +39,7 @@ export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
     entity.content = dto.content;
     entity.status = dto.status;
     entity.readingTime = dto.readingTime;
+    // TODO: Include fileUrl
     entity.createdAt = dto.createdAt;
     entity.updatedAt = dto.updatedAt;
     return entity;
@@ -48,5 +51,10 @@ export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
 
   convertAggregateResponse(aggregate: AggregateResponse<PostEntity>): AggregateResponse<PostDTO> {
     return transformAggregateResponse(aggregate, {});
+  }
+
+  private entityMainFleUrl(entity: PostEntity): string {
+    const postFile = entity.postFiles.find((file) => file.main === true);
+    return postFile ? postFile.uploadFile.url : '';
   }
 }

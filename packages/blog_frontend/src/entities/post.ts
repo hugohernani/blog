@@ -5,6 +5,7 @@ export interface Post {
   title: string;
   content: string;
   readingTime?: number;
+  postUrl?: string;
   createdAt: string;
 }
 

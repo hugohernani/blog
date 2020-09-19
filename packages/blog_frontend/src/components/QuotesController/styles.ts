@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
-  float: right;
+  position: absolute;
   margin-left: 2px;
   margin-bottom: 20px;
 
   max-width: 600px;
   max-height: 400px;
 
-  bottom: 130px;
+  top: -130px;
+  right: 0px;
   transform: scale(1);
 
   &:hover {

@@ -5,11 +5,12 @@ export const Container = styled.div`
 
   hr {
     overflow: visible;
-    padding: 0;
+    padding: 0px;
     border: none;
     border-top: 2px solid whitesmoke;
     color: #270ef0e0;
     text-align: center;
+    height: 1px;
 
     &:after {
       content: 'HH';
@@ -34,9 +35,11 @@ export const NavigationContainer = styled.section`
   > div a {
     transition: all 0.2s ease-out;
 
-    &:hover {
-      background-color: gray;
-      padding: 10px 20px !important;
+    &:hover,
+    &.active:hover {
+      background-color: white;
+      margin: 0px;
+      padding: 10px 20px;
     }
 
     &.active {
@@ -105,15 +108,14 @@ const footerParapraph = css`
 
 export const CopyrightContainer = styled.section`
   margin: 0px 80px;
-  min-height: 60px;
+  min-height: 100px;
   text-align: center;
 
   display: flex;
-  align-items: center;
   flex-flow: row wrap;
   justify-content: space-between;
 
-  align-items: baseline;
+  align-items: center;
   color: #a7a4a6;
 
   > p {

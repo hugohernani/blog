@@ -69,16 +69,6 @@ const Homepage: React.FC = () => {
         </PostsContainer>
 
         <FooterContainer>
-          <NewsletterSection>
-            <NewsletterHeader>Testing</NewsletterHeader>
-            <NewsletterMessage>
-              Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem
-              ipsum
-            </NewsletterMessage>
-
-            <NewsletterFormGroup></NewsletterFormGroup>
-          </NewsletterSection>
-
           <NavigationBottom />
         </FooterContainer>
       </BodyContainer>
