@@ -56,45 +56,6 @@ export const ContentContainer = styled.div`
   flex: 3;
 `;
 
-export const ImageContainer = styled.div`
-  flex: 1;
-  margin-left: 40px;
-  margin-top: 25px;
-
-  img {
-    border-radius: 15%;
-    box-shadow: 0px 10px 29px 0px rgba(0, 0, 0, 0.75);
-    transform: scale(1);
-
-    transition: transform 0.4s, box-shadow 0.4s linear;
-
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-`;
-
-export const PostInfoContainer = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin: 5px 0px;
-
-  span {
-    color: gray;
-
-    & ~ span {
-      border-left: 1px solid black;
-      margin-left: 5px;
-      padding-left: 5px;
-    }
-  }
-`;
-
-export const PostDate = styled.span``;
-
-export const PostReadTime = styled.span``;
-
 export const ContentSection = styled.section`
   display: inline-block;
   margin-top: 10px;
