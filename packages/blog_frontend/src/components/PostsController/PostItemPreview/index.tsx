@@ -9,17 +9,16 @@ import {
   PostDate,
   PostInfoContainer,
   PostReadTime,
-  PostTag,
-  PostTagsContainer,
   ReadButtonContainer,
   SectionContainer,
 } from './styles';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Post } from '../../../entities';
 import ReadMoreButton from '../../ReadMoreButton';
 import moment from 'moment';
 import pixabay from 'src/lib/pixabay';
+import PostTagList from '../PostTagList';
 
 interface PostProps {
   post: Post;
@@ -70,10 +69,6 @@ const PostItemPreview: React.FC<PostProps> = ({
     };
   }, [mainImageUrl, technologyTags]);
 
-  const postTags = useCallback(() => {
-    return technologyTags.map((tag, index) => <PostTag key={`${tag}-${index}`}>{tag}</PostTag>);
-  }, [technologyTags]);
-
   return (
     <Container>
       <PostContainer>
@@ -84,7 +79,7 @@ const PostItemPreview: React.FC<PostProps> = ({
               <PostDate>{formattedCreatedAtDate}</PostDate>
               {formattedReadTime && <PostReadTime>{formattedReadTime}</PostReadTime>}
             </PostInfoContainer>
-            <PostTagsContainer>{postTags()}</PostTagsContainer>
+            <PostTagList tags={technologyTags} />
             <ContentSection>
               <MainContent>{content}</MainContent>
             </ContentSection>
