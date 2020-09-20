@@ -3,19 +3,22 @@ import { PixaBayResponseData, PixaBayRequestOptions } from './types';
 
 const pixabayInstance = axios.create({
   baseURL: 'https://pixabay.com/api/',
-  paramsSerializer: (params: { q: string[] } & PixaBayRequestOptions) => {
-    const pixaBayAPIkey = process.env.PIXABAY_API_KEY;
-    console.log('PixaBay key: ', pixaBayAPIkey);
-    // following pixabay image search requirements: https://pixabay.com/pt/blog/posts/advanced-image-search-on-pixabay-46/
+  paramsSerializer: (params: { q: string[] } & PixaBayRequestOptions): string => {
+    const pixaBayAPIkey = process.env.REACT_APP_PIXABAY_API_KEY;
     const { q: searchTerms, ...remainingParams } = params;
     const fuzzySearchTerm = (compoundTerm: string): string[] => {
       return compoundTerm.split(' ').map((term) => `${term}~`);
     };
+
+    const objStringValues: Record<string, string> = {};
+    Object.keys(remainingParams).forEach((attr: string) => {
+      objStringValues[attr] = remainingParams[attr].toString();
+    });
     const serializedParams = {
       q: searchTerms.map((compoundTerm) => fuzzySearchTerm(compoundTerm)).join('|'),
-      ...remainingParams,
+      ...objStringValues,
     };
-    const searchParams = new URLSearchParams(JSON.stringify(serializedParams));
+    const searchParams = new URLSearchParams(serializedParams);
     return `key=${pixaBayAPIkey}&${searchParams.toString()}`;
   },
 });

@@ -21,7 +21,13 @@ interface PostsProps {
 }
 
 const PostsController: React.FC<PostsProps> = ({ postItemComponent = PostItemPreview }) => {
-  const { loading, error, data } = useQuery<TruncatedPostData, CursorBased<Post>>(GET_POSTS);
+  const { loading, error, data } = useQuery<TruncatedPostData, CursorBased<Post>>(GET_POSTS, {
+    variables: {
+      paging: {
+        first: 1,
+      },
+    },
+  });
 
   if (loading) {
     return <Loader />;

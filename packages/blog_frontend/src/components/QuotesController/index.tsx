@@ -67,7 +67,6 @@ const QuotesController: React.FC<QuotesProps> = ({ sliderTimer = 5000 }) => {
         nextQuotePosition(false);
       }, sliderTimer);
       return () => {
-        console.log('here');
         clearTimeout(timerId);
       };
     }

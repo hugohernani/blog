@@ -4,11 +4,6 @@ import {
   BodyContainer,
   Container,
   FooterContainer,
-  Header,
-  NewsletterFormGroup,
-  NewsletterHeader,
-  NewsletterMessage,
-  NewsletterSection,
   PostsContainer,
   WordCloudContainer,
 } from './styles';

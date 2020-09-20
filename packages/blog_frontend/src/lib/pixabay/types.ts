@@ -27,6 +27,7 @@ export type PixaBayAllowedImageType = typeof allowedPixaBayImageTypes;
 export type PixaBayAllowedCategory = typeof allowedPixaBayCategories;
 
 export interface PixaBayRequestOptions {
+  [index: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   editors_choice?: boolean;
   safesearch?: boolean;
   image_type?: PixaBayAllowedImageType;

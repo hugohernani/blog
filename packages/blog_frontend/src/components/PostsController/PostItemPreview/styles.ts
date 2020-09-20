@@ -108,7 +108,7 @@ export const PostTag = styled.a`
   border: 1px solid black;
 
   text-align: center;
-  word-break: break-all;
+  word-break: break-word;
 
   cursor: pointer;
 

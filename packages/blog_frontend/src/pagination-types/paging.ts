@@ -1,6 +1,6 @@
-export interface Paging{
-  first: Number;
-  last: Number;
-  after: string;
-  before: string;
+export interface Paging {
+  first?: number;
+  last?: number;
+  after?: string;
+  before?: string;
 }
