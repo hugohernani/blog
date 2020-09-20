@@ -274,10 +274,9 @@ input CreateOnePostInput {
 input CreatePost {
   content: String
   createdAt: DateTime
-  file: Upload
-  fileUrl: String
   id: String
-  readingTime: Int
+  mainImageUrl: String
+  readingTime: Float
   status: String
   title: String
   updatedAt: DateTime
@@ -396,10 +395,9 @@ type Post {
   ): PostCommentsConnection!
   content: String!
   createdAt: DateTime!
-  file: Upload
-  fileUrl: String
   id: String!
-  readingTime: Int
+  mainImageUrl: String
+  readingTime: Float
   status: String!
   title: String!
   updatedAt: DateTime!
@@ -445,10 +443,9 @@ input PostDeleteFilter {
 type PostDeleteResponse {
   content: String
   createdAt: DateTime
-  file: Upload
-  fileUrl: String
   id: String
-  readingTime: Int
+  mainImageUrl: String
+  readingTime: Float
   status: String
   title: String
   updatedAt: DateTime
@@ -677,14 +674,10 @@ input UpdateOnePostInput {
 input UpdatePost {
   content: String
   createdAt: DateTime
-  file: Upload
-  fileUrl: String
   id: String
-  readingTime: Int
+  mainImageUrl: String
+  readingTime: Float
   status: String
   title: String
   updatedAt: DateTime
 }
-
-"""File upload scalar type"""
-scalar Upload

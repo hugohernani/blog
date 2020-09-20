@@ -3,7 +3,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 import { Inject } from '@nestjs/common';
 import { PostDTO } from '../dto';
 import { PostConnection, PostQuery } from './types.post';
-import { PostService } from '../services';
+import { PostAssemblerService } from '../services';
 
 // const createdDefaultSort: SortField<PostDTO> = {
 //   field: 'createdAt',
@@ -13,8 +13,8 @@ import { PostService } from '../services';
 @Resolver(() => PostDTO)
 export class PostResolver extends CRUDResolver(PostDTO, {}) {
   constructor(
-    @Inject(PostService)
-    readonly service: PostService,
+    @Inject(PostAssemblerService)
+    readonly service: PostAssemblerService,
   ) {
     super(service);
   }

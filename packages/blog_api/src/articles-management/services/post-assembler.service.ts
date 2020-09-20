@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { PostAssembler } from '../assemblers';
 
 @QueryService(PostDTO)
-export class PostService extends AssemblerQueryService<PostDTO, PostEntity> {
+export class PostAssemblerService extends AssemblerQueryService<PostDTO, PostEntity> {
   constructor(
     readonly assembler: PostAssembler,
     @InjectQueryService(PostEntity) readonly service: QueryService<PostEntity>,

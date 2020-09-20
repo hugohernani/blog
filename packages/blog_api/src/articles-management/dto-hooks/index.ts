@@ -1,1 +1,1 @@
-export * from './beforeCreatePost.dto-hook';
+export * from './before-create-post.dto-hook';

@@ -2,9 +2,9 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { PostEntity } from '.';
 import UploadFileEntity from './uploadFile.entity';
 
-@Entity()
+@Entity('post_file')
 class PostFileEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ default: false })
@@ -14,7 +14,10 @@ class PostFileEntity {
   @JoinColumn({ name: 'postId' })
   post: PostEntity;
 
-  @ManyToOne(() => UploadFileEntity, (uploadFile) => uploadFile.postFiles)
+  @ManyToOne(() => UploadFileEntity, (uploadFile) => uploadFile.postFiles, {
+    eager: true,
+    cascade: true,
+  })
   @JoinColumn({ name: 'uploadFileId' })
   uploadFile: UploadFileEntity;
 }

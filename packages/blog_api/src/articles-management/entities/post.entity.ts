@@ -31,7 +31,7 @@ export class PostEntity {
   })
   status: string;
 
-  @Column({ nullable: true })
+  @Column('decimal', { precision: 8, scale: 2, nullable: true })
   readingTime: number;
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
@@ -47,6 +47,10 @@ export class PostEntity {
   @OneToMany(() => CommentEntity, (comment) => comment.post)
   comments: CommentEntity[];
 
-  @OneToMany(() => PostFileEntity, (postFile) => postFile.post)
-  postFiles: PostFileEntity[];
+  @OneToMany(() => PostFileEntity, (postFile) => postFile.post, {
+    eager: true,
+    lazy: true,
+    cascade: true,
+  })
+  postFiles: Promise<PostFileEntity[]>;
 }

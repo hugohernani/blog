@@ -1,4 +1,4 @@
-import { Field, GraphQLISODateTime, Int, ObjectType } from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, Float, ObjectType } from '@nestjs/graphql';
 import {
   BeforeCreateOne,
   FilterableConnection,
@@ -35,7 +35,7 @@ export class PostDTO {
   @FilterableField()
   status: string;
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Float, { nullable: true })
   readingTime: number;
 
   @FilterableField()
@@ -45,12 +45,12 @@ export class PostDTO {
   @Field(() => GraphQLISODateTime)
   updatedAt: Date;
 
-  @Field({ nullable: true })
-  @Exclude()
-  file: Upload;
+  // @Field({ nullable: true })
+  // @Exclude()
+  // file: Upload;
 
   @Field({ nullable: true })
-  fileUrl: string;
+  mainImageUrl: string;
 
   // @FilterableField()
   // authorId!: string

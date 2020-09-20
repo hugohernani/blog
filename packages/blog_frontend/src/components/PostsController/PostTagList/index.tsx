@@ -14,7 +14,7 @@ import {
   ReadButtonContainer,
   SectionContainer,
 } from './styles';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Post } from '../../../entities';
 import ReadMoreButton from '../../ReadMoreButton';
@@ -26,12 +26,12 @@ interface PostProps {
 }
 
 interface PixaBayImage {
-  url: string | undefined;
-  tags: string | undefined;
+  url: string;
+  tags: string;
 }
 
 const PostItemPreview: React.FC<PostProps> = ({
-  post: { id, title, content, createdAt, mainImageUrl, readingTime = null },
+  post: { id, title, content, createdAt, mainImageUrl = '', readingTime = null },
 }) => {
   const [formattedCreatedAtDate] = useState(() => {
     const createdAtDate = new Date(createdAt);
@@ -51,6 +51,7 @@ const PostItemPreview: React.FC<PostProps> = ({
   });
 
   const [technologyTags] = useState<string[]>(['upfront technology', 'nestjs', 'graphql', 'react']);
+  // const [teologyTags] = useState<string[]>(['teologia', 'igreja', 'bíblia']);
 
   const [pixaBayImage, setPixaBayImage] = useState<PixaBayImage>({ url: mainImageUrl, tags: technologyTags.join(',') });
 
@@ -65,42 +66,42 @@ const PostItemPreview: React.FC<PostProps> = ({
       };
       fetchPostImage();
     }
-    return (): void => {
-      console.log('TODO: Save this image into post instance database through graphql api call');
-    };
-  }, [mainImageUrl, technologyTags]);
+  });
 
   const postTags = useCallback(() => {
     return technologyTags.map((tag, index) => <PostTag key={`${tag}-${index}`}>{tag}</PostTag>);
   }, [technologyTags]);
 
-  return (
-    <Container>
-      <PostContainer>
-        <Header>{title}</Header>
-        <SectionContainer>
-          <ContentContainer>
-            <PostInfoContainer>
-              <PostDate>{formattedCreatedAtDate}</PostDate>
-              {formattedReadTime && <PostReadTime>{formattedReadTime}</PostReadTime>}
-            </PostInfoContainer>
-            <PostTagsContainer>{postTags()}</PostTagsContainer>
-            <ContentSection>
-              <MainContent>{content}</MainContent>
-            </ContentSection>
-            <ReadButtonContainer>
-              <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
-            </ReadButtonContainer>
-          </ContentContainer>
-          {pixaBayImage.url && (
-            <ImageContainer>
-              <img src={pixaBayImage.url} alt={pixaBayImage.tags} width="350px" height="300px" />
-            </ImageContainer>
-          )}
-        </SectionContainer>
-      </PostContainer>
-      <hr />
-    </Container>
+  return useMemo(
+    () => (
+      <Container>
+        <PostContainer>
+          <Header>{title}</Header>
+          <SectionContainer>
+            <ContentContainer>
+              <PostInfoContainer>
+                <PostDate>{formattedCreatedAtDate}</PostDate>
+                {formattedReadTime && <PostReadTime>{formattedReadTime}</PostReadTime>}
+              </PostInfoContainer>
+              <PostTagsContainer>{postTags()}</PostTagsContainer>
+              <ContentSection>
+                <MainContent>{content}</MainContent>
+              </ContentSection>
+              <ReadButtonContainer>
+                <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
+              </ReadButtonContainer>
+            </ContentContainer>
+            {pixaBayImage.url && (
+              <ImageContainer>
+                <img src={pixaBayImage.url} alt={pixaBayImage.tags} width="350px" height="300px" />
+              </ImageContainer>
+            )}
+          </SectionContainer>
+        </PostContainer>
+        <hr />
+      </Container>
+    ),
+    [title, formattedCreatedAtDate, formattedReadTime, postTags, pixaBayImage, content, id],
   );
 };
 

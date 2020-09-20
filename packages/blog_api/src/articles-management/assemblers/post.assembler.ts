@@ -1,60 +1,52 @@
-import {
-  AbstractAssembler,
-  AggregateQuery,
-  AggregateResponse,
-  Assembler,
-  Query,
-  transformAggregateQuery,
-  transformAggregateResponse,
-  transformQuery,
-} from '@nestjs-query/core';
+import { Assembler, ClassTransformerAssembler } from '@nestjs-query/core';
 
 import { PostDTO } from '../dto';
 import { PostEntity } from '../entities';
+import PostFileEntity from '../entities/postFile.entity';
+import UploadFileEntity from '../entities/uploadFile.entity';
 
 @Assembler(PostDTO, PostEntity)
-export class PostAssembler extends AbstractAssembler<PostDTO, PostEntity> {
-  convertQuery(query: Query<PostDTO>): Query<PostEntity> {
-    return transformQuery(query, {});
-  }
-
+export class PostAssembler extends ClassTransformerAssembler<PostDTO, PostEntity> {
   convertToDTO(entity: PostEntity): PostDTO {
-    const dto = new PostDTO();
-    dto.id = entity.id;
-    dto.title = entity.title;
-    dto.content = entity.content;
-    dto.status = entity.status;
-    dto.readingTime = entity.readingTime;
-    // TODO: Include fileUrl
-    dto.fileUrl = this.entityMainFleUrl(entity);
-    dto.createdAt = entity.createdAt;
-    dto.updatedAt = entity.updatedAt;
+    const dto = Object.create({
+      id: entity.id,
+      title: entity.title,
+      content: entity.content,
+      readingTime: entity.readingTime,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    } as PostDTO);
+    this.loadFileUrlIntoDTO(dto, entity);
     return dto;
   }
 
   convertToEntity(dto: PostDTO): PostEntity {
-    const entity = new PostEntity();
-    entity.id = dto.id;
-    entity.title = dto.title;
-    entity.content = dto.content;
-    entity.status = dto.status;
-    entity.readingTime = dto.readingTime;
-    // TODO: Include fileUrl
-    entity.createdAt = dto.createdAt;
-    entity.updatedAt = dto.updatedAt;
+    const entity = Object.create({
+      id: dto.id,
+      title: dto.title,
+      status: dto.status,
+      readingTime: dto.readingTime,
+      createdAt: dto.createdAt,
+      updatedAt: dto.updatedAt,
+    } as PostEntity);
+    this.loadFileIntoEntity(entity, dto);
     return entity;
   }
 
-  convertAggregateQuery(aggregate: AggregateQuery<PostDTO>): AggregateQuery<PostEntity> {
-    return transformAggregateQuery(aggregate, {});
+  private async loadFileUrlIntoDTO(dto: PostDTO, entity: PostEntity): Promise<void> {
+    const postFiles = await entity.postFiles;
+    if (dto.mainImageUrl === undefined && postFiles !== undefined) {
+      const postFile = postFiles.find((file) => file.main === true);
+      dto.mainImageUrl = postFile ? postFile.uploadFile.url : '';
+    }
   }
 
-  convertAggregateResponse(aggregate: AggregateResponse<PostEntity>): AggregateResponse<PostDTO> {
-    return transformAggregateResponse(aggregate, {});
-  }
+  private loadFileIntoEntity(entity: PostEntity, dto: PostDTO): void {
+    if (dto.mainImageUrl !== undefined) {
+      const uploadFile = Object.create({ url: dto.mainImageUrl } as UploadFileEntity);
+      const postFile = Object.create({ main: true, uploadFile: uploadFile } as PostFileEntity);
 
-  private entityMainFleUrl(entity: PostEntity): string {
-    const postFile = entity.postFiles.find((file) => file.main === true);
-    return postFile ? postFile.uploadFile.url : '';
+      entity.postFiles = Promise.resolve([postFile]);
+    }
   }
 }

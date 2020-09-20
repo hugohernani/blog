@@ -39,6 +39,7 @@ export interface PixaBayRequestOptions {
 export interface PixaBayImageResponseData {
   [index: string]: string | number;
   id: number;
+  tags: string;
   pageURL: string;
   previewURL: string;
   webformatURL: string;
