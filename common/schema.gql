@@ -251,11 +251,6 @@ input CreateManyCommentsInput {
   comments: [CreateComment!]!
 }
 
-input CreateManyPostsInput {
-  """Array of records to create"""
-  posts: [CreatePost!]!
-}
-
 input CreateOneAuthorInput {
   """The record to create"""
   author: CreateAuthor!
@@ -332,11 +327,6 @@ input DeleteManyCommentsInput {
   filter: CommentDeleteFilter!
 }
 
-input DeleteManyPostsInput {
-  """Filter to find records to delete"""
-  filter: PostDeleteFilter!
-}
-
 type DeleteManyResponse {
   """The number of records deleted."""
   deletedCount: Int!
@@ -350,19 +340,16 @@ input DeleteOneInput {
 type Mutation {
   createManyAuthors(input: CreateManyAuthorsInput!): [Author!]!
   createManyComments(input: CreateManyCommentsInput!): [Comment!]!
-  createManyPosts(input: CreateManyPostsInput!): [Post!]!
   createOneAuthor(input: CreateOneAuthorInput!): Author!
   createOneComment(input: CreateOneCommentInput!): Comment!
   createOnePost(input: CreateOnePostInput!): Post!
   deleteManyAuthors(input: DeleteManyAuthorsInput!): DeleteManyResponse!
   deleteManyComments(input: DeleteManyCommentsInput!): DeleteManyResponse!
-  deleteManyPosts(input: DeleteManyPostsInput!): DeleteManyResponse!
   deleteOneAuthor(input: DeleteOneInput!): AuthorDeleteResponse!
   deleteOneComment(input: DeleteOneInput!): CommentDeleteResponse!
   deleteOnePost(input: DeleteOneInput!): PostDeleteResponse!
   updateManyAuthors(input: UpdateManyAuthorsInput!): UpdateManyResponse!
   updateManyComments(input: UpdateManyCommentsInput!): UpdateManyResponse!
-  updateManyPosts(input: UpdateManyPostsInput!): UpdateManyResponse!
   updateOneAuthor(input: UpdateOneAuthorInput!): Author!
   updateOneComment(input: UpdateOneCommentInput!): Comment!
   updateOnePost(input: UpdateOnePostInput!): Post!
@@ -430,16 +417,6 @@ type PostCountAggregate {
   id: Int
   status: Int
   title: Int
-}
-
-input PostDeleteFilter {
-  and: [PostDeleteFilter!]
-  content: StringFieldComparison
-  createdAt: DateFieldComparison
-  id: StringFieldComparison
-  or: [PostDeleteFilter!]
-  status: StringFieldComparison
-  title: StringFieldComparison
 }
 
 type PostDeleteResponse {
@@ -521,16 +498,6 @@ enum PostSortFields {
   title
 }
 
-input PostUpdateFilter {
-  and: [PostUpdateFilter!]
-  content: StringFieldComparison
-  createdAt: DateFieldComparison
-  id: StringFieldComparison
-  or: [PostUpdateFilter!]
-  status: StringFieldComparison
-  title: StringFieldComparison
-}
-
 type Query {
   author(id: ID!): Author
   authors(
@@ -563,7 +530,7 @@ type Query {
     paging: CursorPaging = {first: 10}
 
     """Specify to sort results."""
-    sorting: [PostSort!] = []
+    sorting: [PostSort!] = [{direction: DESC, field: createdAt}]
   ): PostConnection!
   truncatedPosts(
     """Specify to filter the records returned."""
@@ -635,14 +602,6 @@ input UpdateManyCommentsInput {
 
   """The update to apply to all records found using the filter"""
   update: UpdateComment!
-}
-
-input UpdateManyPostsInput {
-  """Filter used to find fields to update"""
-  filter: PostUpdateFilter!
-
-  """The update to apply to all records found using the filter"""
-  update: UpdatePost!
 }
 
 type UpdateManyResponse {

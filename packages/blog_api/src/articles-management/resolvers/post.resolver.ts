@@ -1,17 +1,31 @@
-import { ConnectionType, CRUDResolver } from '@nestjs-query/query-graphql';
+import { ConnectionType, CRUDResolver, ResolverOpts } from '@nestjs-query/query-graphql';
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { Inject } from '@nestjs/common';
 import { PostDTO } from '../dto';
 import { PostConnection, PostQuery } from './types.post';
 import { PostAssemblerService } from '../services';
+import { SortDirection, SortField } from '@nestjs-query/core';
 
-// const createdDefaultSort: SortField<PostDTO> = {
-//   field: 'createdAt',
-//   direction: SortDirection.DESC,
-// };
-//
+const createdDefaultSort: SortField<PostDTO> = {
+  field: 'createdAt',
+  direction: SortDirection.DESC,
+};
+
+const disableManyOptions: ResolverOpts = {
+  many: {
+    disabled: true,
+  },
+};
+
 @Resolver(() => PostDTO)
-export class PostResolver extends CRUDResolver(PostDTO, {}) {
+export class PostResolver extends CRUDResolver(PostDTO, {
+  read: {
+    defaultSort: [createdDefaultSort],
+  },
+  create: { ...disableManyOptions },
+  update: { ...disableManyOptions },
+  delete: { ...disableManyOptions },
+}) {
   constructor(
     @Inject(PostAssemblerService)
     readonly service: PostAssemblerService,
@@ -19,7 +33,6 @@ export class PostResolver extends CRUDResolver(PostDTO, {}) {
     super(service);
   }
 
-  // TODO Debug to understand why getTruncatedPosts is not being called on PostConnection.createFromPromise
   @Query(() => PostConnection)
   truncatedPosts(@Args() query: PostQuery): Promise<ConnectionType<PostDTO>> {
     return PostConnection.createFromPromise((q) => {
