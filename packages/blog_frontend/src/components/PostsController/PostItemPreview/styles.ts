@@ -57,7 +57,7 @@ export const ContentContainer = styled.div`
 `;
 
 export const ContentSection = styled.section`
-  display: inline-block;
+  display: block;
   margin-top: 10px;
   padding: 10px 0px;
 `;

@@ -278,6 +278,7 @@ input CreatePost {
   mainImageUrl: String
   readingTime: Float
   status: String
+  tags: [String!]
   title: String
   updatedAt: DateTime
 }
@@ -399,6 +400,7 @@ type Post {
   mainImageUrl: String
   readingTime: Float
   status: String!
+  tags: [String]
   title: String!
   updatedAt: DateTime!
 }
@@ -447,6 +449,7 @@ type PostDeleteResponse {
   mainImageUrl: String
   readingTime: Float
   status: String
+  tags: [String!]
   title: String
   updatedAt: DateTime
 }
@@ -678,6 +681,7 @@ input UpdatePost {
   mainImageUrl: String
   readingTime: Float
   status: String
+  tags: [String!]
   title: String
   updatedAt: DateTime
 }

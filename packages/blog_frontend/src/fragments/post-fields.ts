@@ -7,6 +7,8 @@ export class PostsPage {
         id
         title
         content
+        mainImageUrl
+        tags
         readingTime
         createdAt
       }

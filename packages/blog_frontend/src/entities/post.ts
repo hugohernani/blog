@@ -6,6 +6,7 @@ export interface Post {
   content: string;
   readingTime?: number;
   mainImageUrl?: string;
+  tags: string[];
   createdAt: string;
 }
 

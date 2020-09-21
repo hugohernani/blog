@@ -21,10 +21,8 @@ interface PostProps {
 }
 
 const PostItemPreview: React.FC<PostProps> = ({
-  post: { id, title, content, createdAt, mainImageUrl, readingTime = undefined },
+  post: { id, title, content, tags, createdAt, mainImageUrl, readingTime = undefined },
 }) => {
-  const [technologyTags] = useState<string[]>(['upfront technology', 'nestjs', 'graphql', 'react']);
-
   return (
     <Container>
       <PostContainer>
@@ -32,7 +30,7 @@ const PostItemPreview: React.FC<PostProps> = ({
         <SectionContainer>
           <ContentContainer>
             <PostInfo createdAt={createdAt} readingTime={readingTime} />
-            <PostTagList tags={technologyTags} />
+            <PostTagList tags={tags} />
             <ContentSection>
               <MainContent>{content}</MainContent>
             </ContentSection>
@@ -40,7 +38,7 @@ const PostItemPreview: React.FC<PostProps> = ({
               <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
             </ReadButtonContainer>
           </ContentContainer>
-          <PostImagePreview imageUrl={mainImageUrl} postTags={technologyTags} />
+          <PostImagePreview imageUrl={mainImageUrl} postTags={tags} />
         </SectionContainer>
       </PostContainer>
       <hr />

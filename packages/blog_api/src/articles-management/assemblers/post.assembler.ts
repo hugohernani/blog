@@ -80,8 +80,6 @@ export class PostAssembler extends ClassTransformerAssembler<PostDTO, PostEntity
         return postTag;
       });
 
-      console.log('here');
-
       entity.postTags = postTagEntities;
     }
   }

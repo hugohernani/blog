@@ -17,7 +17,8 @@ const PostImagePreview: React.FC<PostPreviewImageProps> = ({ imageUrl, postTags 
   const [pixaBayImage, setPixaBayImage] = useState<PixaBayImage>({ url: imageUrl, tags: postTags.join(',') });
 
   useEffect(() => {
-    if (imageUrl === undefined) {
+    console.log('Image Url: ', imageUrl);
+    if (imageUrl === undefined || imageUrl === null) {
       const fetchPostImage = async (): Promise<void> => {
         const pixabayAvailableImages = await pixabay('/', postTags);
         if (pixabayAvailableImages.total !== 0) {
