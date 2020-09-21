@@ -1,4 +1,4 @@
-import { CursorBased, connectionGenerateGql } from '../../pagination-types';
+import { CursorBased } from '../../pagination-types';
 import { Post, TruncatedPostData } from '../../entities';
 
 import ApolloError from '../ApolloError';
@@ -9,6 +9,7 @@ import PostList from './PostList';
 import { PostsPage } from '../../fragments';
 import React from 'react';
 import { useQuery } from '@apollo/client';
+import { connectionGenerateGql } from 'src/utils';
 
 const GET_POSTS = connectionGenerateGql('truncatedPosts', 'Post', PostsPage.fragments.postFields);
 
