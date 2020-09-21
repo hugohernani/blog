@@ -1,24 +1,9 @@
 import { Field, GraphQLISODateTime, Float, ObjectType } from '@nestjs/graphql';
-import {
-  BeforeCreateOne,
-  FilterableConnection,
-  FilterableField,
-  FilterableRelation,
-} from '@nestjs-query/query-graphql';
+import { BeforeCreateOne, FilterableField } from '@nestjs-query/query-graphql';
 
-import { AuthorDTO } from './author.dto';
-import { CommentDTO } from './comment.dto';
 import { beforeCreatePost } from '../dto-hooks';
 
-const commonFilterableRelationOpts = {
-  disableRemove: true,
-  enableTotalCount: true,
-  disableUpdate: true,
-};
-
 @ObjectType('Post')
-@FilterableRelation('author', () => AuthorDTO, commonFilterableRelationOpts)
-@FilterableConnection('comments', () => CommentDTO, commonFilterableRelationOpts)
 @BeforeCreateOne(beforeCreatePost)
 export class PostDTO {
   @FilterableField()

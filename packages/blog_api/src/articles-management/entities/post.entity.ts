@@ -1,16 +1,5 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-  OneToMany,
-  JoinColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { PostStatus } from './enums';
-import { AuthorEntity } from './author.entity';
-import { CommentEntity } from './comment.entity';
 import { PostFileEntity } from './post-file.entity';
 import { PostTagEntity } from './post-tag.entity';
 import { TagEntity } from './tag.entity';
@@ -41,13 +30,6 @@ export class PostEntity {
 
   @UpdateDateColumn({ type: 'timestamp', nullable: false })
   updatedAt: Date;
-
-  @ManyToOne(() => AuthorEntity, (author) => author.posts)
-  @JoinColumn({ name: 'authorId' })
-  author: AuthorEntity;
-
-  @OneToMany(() => CommentEntity, (comment) => comment.post)
-  comments: CommentEntity[];
 
   @OneToMany(() => PostFileEntity, (postFile) => postFile.post, {
     eager: true,
