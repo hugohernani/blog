@@ -1,8 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import PostFileEntity from './postFile.entity';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { PostFileEntity } from './post-file.entity';
 
 @Entity('upload_file')
-class UploadFileEntity {
+export class UploadFileEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
@@ -12,7 +12,10 @@ class UploadFileEntity {
   @Column({ default: false })
   local: boolean;
 
-  @OneToMany(() => PostFileEntity, (postFile) => postFile.post)
+  @CreateDateColumn({ type: 'timestamp', nullable: false })
+  createdAt: Date;
+
+  @OneToMany(() => PostFileEntity, (postFile) => postFile.uploadFile)
   postFiles: PostFileEntity[];
 
   // static create(params: { local; url }): UploadFileEntity {
@@ -22,5 +25,3 @@ class UploadFileEntity {
   //   return instance;
   // }
 }
-
-export default UploadFileEntity;

@@ -11,7 +11,9 @@ import {
 import { PostStatus } from './enums';
 import { AuthorEntity } from './author.entity';
 import { CommentEntity } from './comment.entity';
-import PostFileEntity from './postFile.entity';
+import { PostFileEntity } from './post-file.entity';
+import { PostTagEntity } from './post-tag.entity';
+import { TagEntity } from './tag.entity';
 
 @Entity('post')
 export class PostEntity {
@@ -48,9 +50,18 @@ export class PostEntity {
   comments: CommentEntity[];
 
   @OneToMany(() => PostFileEntity, (postFile) => postFile.post, {
-    eager: true,
     lazy: true,
+    eager: true,
     cascade: true,
   })
-  postFiles: Promise<PostFileEntity[]>;
+  postFiles: PostFileEntity[];
+
+  @OneToMany(() => PostTagEntity, (postTag) => postTag.post, {
+    eager: true,
+    cascade: true,
+  })
+  postTags: PostTagEntity[];
+
+  // Directly database mapped through querybuilder leftjoinandMapMany
+  mappedTags: TagEntity[];
 }

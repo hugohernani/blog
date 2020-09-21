@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PostEntity } from '.';
-import UploadFileEntity from './uploadFile.entity';
+import { UploadFileEntity } from './upload-file.entity';
 
 @Entity('post_file')
-class PostFileEntity {
+export class PostFileEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
@@ -21,5 +21,3 @@ class PostFileEntity {
   @JoinColumn({ name: 'uploadFileId' })
   uploadFile: UploadFileEntity;
 }
-
-export default PostFileEntity;

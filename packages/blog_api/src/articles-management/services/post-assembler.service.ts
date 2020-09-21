@@ -1,16 +1,18 @@
-import { QueryService, Query, InjectQueryService, AssemblerQueryService } from '@nestjs-query/core';
+import { QueryService, Query, AssemblerQueryService } from '@nestjs-query/core';
 import { PostEntity } from '../entities';
 import { PostDTO } from '../dto';
 import * as _ from 'lodash';
 import { PostAssembler } from '../assemblers';
+import { PostDatabaseService } from './post-database.service';
+import { Inject } from '@nestjs/common';
 
 @QueryService(PostDTO)
 export class PostAssemblerService extends AssemblerQueryService<PostDTO, PostEntity> {
   constructor(
     readonly assembler: PostAssembler,
-    @InjectQueryService(PostEntity) readonly service: QueryService<PostEntity>,
+    @Inject(PostDatabaseService) readonly postDatabaseService: PostDatabaseService,
   ) {
-    super(assembler, service);
+    super(assembler, postDatabaseService);
   }
 
   async getTruncatedPosts(incomingQuery: Query<PostDTO>, attr: string, size = 400): Promise<PostDTO[]> {

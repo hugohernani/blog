@@ -8,8 +8,6 @@ import {
 
 import { AuthorDTO } from './author.dto';
 import { CommentDTO } from './comment.dto';
-import { Upload } from 'src/scalars/upload.scalar';
-import { Exclude } from 'class-transformer/decorators';
 import { beforeCreatePost } from '../dto-hooks';
 
 const commonFilterableRelationOpts = {
@@ -36,7 +34,7 @@ export class PostDTO {
   status: string;
 
   @Field(() => Float, { nullable: true })
-  readingTime: number;
+  readingTime?: number;
 
   @FilterableField()
   @Field(() => GraphQLISODateTime)
@@ -50,7 +48,10 @@ export class PostDTO {
   // file: Upload;
 
   @Field({ nullable: true })
-  mainImageUrl: string;
+  mainImageUrl?: string;
+
+  @Field(() => [String], { nullable: 'itemsAndList' })
+  tags?: string[];
 
   // @FilterableField()
   // authorId!: string

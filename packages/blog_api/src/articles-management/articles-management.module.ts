@@ -12,6 +12,7 @@ import { PostAssemblerService } from './services';
 import { TruncateDirective } from '../directives';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { PostDatabaseService } from './services/post-database.service';
 
 const createdDefaultSort: SortField<PostEntity> = {
   field: 'createdAt',
@@ -45,6 +46,6 @@ const defaultReadSort = { defaultSort: [createdDefaultSort] };
       ],
     }),
   ],
-  providers: [PostAssemblerService, PostResolver],
+  providers: [PostDatabaseService, PostAssemblerService, PostResolver],
 })
 export class ArticlesManagementModule {}
