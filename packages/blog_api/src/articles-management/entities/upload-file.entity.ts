@@ -17,11 +17,4 @@ export class UploadFileEntity {
 
   @OneToMany(() => PostFileEntity, (postFile) => postFile.uploadFile)
   postFiles: PostFileEntity[];
-
-  // static create(params: { local; url }): UploadFileEntity {
-  //   const instance = new UploadFileEntity();
-  //   instance.local = local;
-  //   instance.url = url;
-  //   return instance;
-  // }
 }

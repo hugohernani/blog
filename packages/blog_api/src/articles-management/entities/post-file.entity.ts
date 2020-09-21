@@ -15,7 +15,6 @@ export class PostFileEntity {
   post: PostEntity;
 
   @ManyToOne(() => UploadFileEntity, (uploadFile) => uploadFile.postFiles, {
-    eager: true,
     cascade: true,
   })
   @JoinColumn({ name: 'uploadFileId' })

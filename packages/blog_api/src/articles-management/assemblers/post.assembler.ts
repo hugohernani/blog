@@ -17,7 +17,7 @@ export class PostAssembler extends ClassTransformerAssembler<PostDTO, PostEntity
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
     } as PostDTO);
-    // this.loadFileUrlIntoDTO(dto, entity);
+    this.loadFileUrlIntoDTO(dto, entity);
     this.loadTagsIntoDTO(dto, entity);
     return dto;
   }
@@ -32,13 +32,13 @@ export class PostAssembler extends ClassTransformerAssembler<PostDTO, PostEntity
       createdAt: dto.createdAt,
       updatedAt: dto.updatedAt,
     } as PostEntity);
-    // this.loadFileIntoEntity(entity, dto);
+    this.loadFileIntoEntity(entity, dto);
     this.loadTagsIntoEntity(entity, dto);
     return entity;
   }
 
   private async loadFileUrlIntoDTO(dto: PostDTO, entity: PostEntity): Promise<void> {
-    const postFiles = await entity.postFiles;
+    const postFiles = entity.postFiles;
     if (dto.mainImageUrl === undefined && postFiles !== undefined) {
       const postFile = postFiles.find((file) => file.main === true);
       dto.mainImageUrl = postFile ? postFile.uploadFile.url : '';

@@ -50,7 +50,6 @@ export class PostEntity {
   comments: CommentEntity[];
 
   @OneToMany(() => PostFileEntity, (postFile) => postFile.post, {
-    lazy: true,
     eager: true,
     cascade: true,
   })
