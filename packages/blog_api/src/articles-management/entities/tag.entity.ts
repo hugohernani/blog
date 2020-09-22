@@ -3,12 +3,12 @@ import { PostTagEntity } from './post-tag.entity';
 
 @Entity('tag')
 export class TagEntity {
-  @Column({ primary: true })
+  @Column({ primary: true, unique: true })
   name: string;
 
   @CreateDateColumn({ type: 'timestamp', nullable: false })
   createdAt: Date;
 
   @OneToMany(() => PostTagEntity, (postTag) => postTag.tag)
-  postTags!: PostTagEntity[];
+  postTags: PostTagEntity[];
 }

@@ -20,7 +20,7 @@ export class PostEntity {
     enum: PostStatus,
     default: PostStatus.DRAFT,
   })
-  status: string;
+  status: PostStatus;
 
   @Column('decimal', { precision: 8, scale: 2, nullable: true })
   readingTime: number;

@@ -15,7 +15,7 @@ export const PostContainer = styled.div`
   padding: 20px;
 
   &:hover {
-    > h3 {
+    h3 {
       border-top: 2px solid #270ef0e0;
       border-bottom: 2px solid #270ef0e0;
     }
@@ -26,7 +26,7 @@ export const PostContainer = styled.div`
     }
 
     img {
-      box-shadow: 0px 10px 29px 0px #270ef0e0;
+      box-shadow: 0px 10px 49px 5px #270ef0e0;
     }
   }
 `;
@@ -57,9 +57,14 @@ export const ContentContainer = styled.div`
 `;
 
 export const ContentSection = styled.section`
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: self-start;
+  height: 185px;
+  justify-content: space-between;
+
   margin-top: 10px;
-  padding: 10px 0px;
+  padding-top: 10px;
 `;
 
 export const MainContent = styled.p`
@@ -72,7 +77,6 @@ export const ReadButtonContainer = styled.div`
   font-size: 20px;
 
   display: inline-block;
-  margin: 5px 0px 10px 0px;
   transform: scale(1);
   transition: transform 0.2s ease-in-out;
 

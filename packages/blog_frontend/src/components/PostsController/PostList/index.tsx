@@ -1,8 +1,8 @@
 import { Container, PostsContainer, Header } from './styles';
 
-import { CursorConnection } from '../../../pagination-types';
 import { Post } from '../../../entities';
 import React from 'react';
+import { CursorConnection } from 'src/graphql-types';
 
 interface PostProps {
   post: Post;

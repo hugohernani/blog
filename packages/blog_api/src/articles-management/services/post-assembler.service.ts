@@ -15,7 +15,7 @@ export class PostAssemblerService extends AssemblerQueryService<PostDTO, PostEnt
     super(assembler, postDatabaseService);
   }
 
-  async getTruncatedPosts(incomingQuery: Query<PostDTO>, attr: string, size = 400): Promise<PostDTO[]> {
+  async getTruncatedPosts(incomingQuery: Query<PostDTO>, attr: string, size = 500): Promise<PostDTO[]> {
     const postDTOs = await this.query(incomingQuery);
 
     return postDTOs.map((postDTO) => {

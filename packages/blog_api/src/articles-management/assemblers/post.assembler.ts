@@ -41,7 +41,7 @@ export class PostAssembler extends ClassTransformerAssembler<PostDTO, PostEntity
     const postFiles = entity.postFiles;
     if (dto.mainImageUrl === undefined && postFiles !== undefined) {
       const postFile = postFiles.find((file) => file.main === true);
-      dto.mainImageUrl = postFile ? postFile.uploadFile.url : '';
+      dto.mainImageUrl = postFile ? postFile.uploadFile.url : null;
     }
   }
 

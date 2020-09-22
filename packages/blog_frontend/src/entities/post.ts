@@ -1,4 +1,4 @@
-import { CursorConnection } from '../pagination-types';
+import { CursorConnection } from 'src/graphql-types';
 
 export interface Post {
   id: string;

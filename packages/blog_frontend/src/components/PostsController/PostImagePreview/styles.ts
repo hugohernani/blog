@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   flex: 1;
   margin-left: 40px;
-  margin-top: 25px;
 
   img {
     border-radius: 15%;

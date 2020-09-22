@@ -184,7 +184,7 @@ type Query {
     paging: CursorPaging = {first: 10}
 
     """Specify to sort results."""
-    sorting: [PostSort!] = [{direction: DESC, field: createdAt}]
+    sorting: [PostSort!] = [{direction: ASC, field: createdAt}]
   ): PostConnection!
   truncatedPosts(
     """Specify to filter the records returned."""

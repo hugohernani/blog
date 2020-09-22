@@ -14,6 +14,6 @@ export class PostTagEntity {
   @ManyToOne(() => TagEntity, (tag) => tag.postTags, {
     cascade: true,
   })
-  @JoinColumn({ name: 'tagName', referencedColumnName: 'name' })
+  @JoinColumn({ name: 'tagName' })
   tag: TagEntity;
 }

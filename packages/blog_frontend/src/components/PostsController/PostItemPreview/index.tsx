@@ -26,19 +26,19 @@ const PostItemPreview: React.FC<PostProps> = ({
   return (
     <Container>
       <PostContainer>
-        <Header>{title}</Header>
         <SectionContainer>
           <ContentContainer>
+            <Header>{title}</Header>
             <PostInfo createdAt={createdAt} readingTime={readingTime} />
             <PostTagList tags={tags} />
             <ContentSection>
               <MainContent>{content}</MainContent>
+              <ReadButtonContainer>
+                <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
+              </ReadButtonContainer>
             </ContentSection>
-            <ReadButtonContainer>
-              <ReadMoreButton content="Leia mais" href={'/posts/' + id} />
-            </ReadButtonContainer>
           </ContentContainer>
-          <PostImagePreview imageUrl={mainImageUrl} postTags={tags} />
+          <PostImagePreview postId={id} imageUrl={mainImageUrl} postTags={tags} />
         </SectionContainer>
       </PostContainer>
       <hr />

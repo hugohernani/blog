@@ -2,7 +2,7 @@ import { DeepPartial, QueryService } from '@nestjs-query/core';
 import { TypeOrmQueryService } from '@nestjs-query/query-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { PostEntity, UploadFileEntity } from '../entities';
+import { PostEntity } from '../entities';
 import { TagEntity } from '../entities/tag.entity';
 import { PostQuery } from '../resolvers/types.post';
 
@@ -35,8 +35,8 @@ export class PostDatabaseService extends TypeOrmQueryService<PostEntity> {
     return selectQueryBuilder
       .leftJoinAndSelect('PostEntity.postFiles', '_postFiles')
       .leftJoinAndSelect('_postFiles.uploadFile', '_files')
-      .innerJoinAndSelect('PostEntity.postTags', '_postTags')
-      .innerJoinAndMapMany('PostEntity.mappedTags', TagEntity, '_tags', '"_postTags"."tagName" = "_tags"."name"');
+      .leftJoinAndSelect('PostEntity.postTags', '_postTags')
+      .leftJoinAndMapMany('PostEntity.mappedTags', TagEntity, '_tags', '"_postTags"."tagName" = "_tags"."name"');
   }
 
   private _ensureIdIsNotPresent(entity: PostEntity): void {

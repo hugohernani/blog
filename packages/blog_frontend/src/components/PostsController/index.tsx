@@ -1,8 +1,6 @@
-import { CursorBased } from '../../pagination-types';
 import { Post, TruncatedPostData } from '../../entities';
 
 import ApolloError from '../ApolloError';
-import { CursorConnection } from '../../pagination-types';
 import Loader from '../Loader';
 import PostItemPreview from './PostItemPreview';
 import PostList from './PostList';
@@ -10,6 +8,7 @@ import { PostsPage } from '../../fragments';
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { connectionGenerateGql } from 'src/utils';
+import { CursorBased, CursorConnection } from 'src/graphql-types';
 
 const GET_POSTS = connectionGenerateGql('truncatedPosts', 'Post', PostsPage.fragments.postFields);
 
@@ -22,13 +21,7 @@ interface PostsProps {
 }
 
 const PostsController: React.FC<PostsProps> = ({ postItemComponent = PostItemPreview }) => {
-  const { loading, error, data } = useQuery<TruncatedPostData, CursorBased<Post>>(GET_POSTS, {
-    variables: {
-      paging: {
-        first: 1,
-      },
-    },
-  });
+  const { loading, error, data } = useQuery<TruncatedPostData, CursorBased<Post>>(GET_POSTS);
 
   if (loading) {
     return <Loader />;
