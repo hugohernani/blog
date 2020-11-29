@@ -1,4 +1,4 @@
-import { Container, PostsContainer, Header } from './styles';
+import { Container, PostsContainer, Header, LoadMoreContainer, LoadMoreButton } from './styles';
 
 import { Post } from '../../../entities';
 import React from 'react';
@@ -9,13 +9,23 @@ interface PostProps {
 }
 
 interface PostListProps {
+  onLoadMore(): void;
   posts: CursorConnection<Post>;
   listPageTitle?: string;
   PostItemComponent: React.FC<PostProps>;
 }
 
-const PostList: React.FC<PostListProps> = ({ listPageTitle = 'Artigos mais recentes', posts, PostItemComponent }) => {
-  const { edges: postEdges } = posts;
+const PostList: React.FC<PostListProps> = ({
+  listPageTitle = 'Artigos mais recentes',
+  posts,
+  onLoadMore,
+  PostItemComponent,
+}) => {
+  const {
+    edges: postEdges,
+    pageInfo: { hasNextPage },
+  } = posts;
+
   return (
     <Container>
       <Header>{listPageTitle}</Header>
@@ -25,6 +35,11 @@ const PostList: React.FC<PostListProps> = ({ listPageTitle = 'Artigos mais recen
             (postEdge) => postEdge?.node && <PostItemComponent key={postEdge.node.id} post={postEdge.node} />,
           )}
         </PostsContainer>
+      )}
+      {hasNextPage && (
+        <LoadMoreContainer>
+          <LoadMoreButton onClick={onLoadMore}>Carregar mais</LoadMoreButton>
+        </LoadMoreContainer>
       )}
     </Container>
   );

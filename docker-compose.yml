@@ -1,82 +1,82 @@
 version: '3.4'
-
-x-logging: &default-logging
-  driver: 'json-file'
+x-logging:
+  driver: json-file
   options:
-    max-size: '200k'
+    max-size: 200k
     max-file: '10'
-
 services:
   blog_api_database:
-    image: postgres:alpine
+    image: 'postgres:alpine'
     env_file:
       - .env
       - .env.database
     ports:
       - '${BLOG_DB_EXPOSED_PORT}'
     volumes:
-      - api_database_data:/var/lib/postgresql/data
+      - 'api_database_data:/var/lib/postgresql/data'
     networks:
       - system
       - backend
-
   blog_api:
     build:
       context: .
       dockerfile: dockerfiles/Dockerfile.blog_api
       target: dev
       cache_from:
-        - alpine:latest
+        - 'alpine:latest'
       labels:
-        com.blog.hugo.description: 'Blog API system'
-        com.blog.hugo.service_type: 'GRAPHQL API'
+        com.blog.hugo.description: Blog API system
+        com.blog.hugo.service_type: GRAPHQL API
     ports:
       - '${BLOG_API_APP_EXPOSED_PORT}:${BLOG_API_APP_EXPOSED_PORT}'
     volumes:
-      - ./common:/common
-      - ./packages/blog_api:/usr/src/app
-      - ./node_modules:/usr/src/app/node_modules
+      - './common:/common'
+      - './packages/blog_api:/usr/src/app'
+      - './node_modules:/usr/src/app/node_modules'
     env_file:
       - .env
       - dockerfiles/.env.typeorm.development
-    logging: *default-logging
+    logging:
+      driver: json-file
+      options:
+        max-size: 200k
+        max-file: '10'
     depends_on:
       - blog_api_database
     networks:
       - system
       - backend
-
   blog_frontend:
     build:
       context: .
       target: dev
       dockerfile: dockerfiles/Dockerfile.blog_frontend
       cache_from:
-        - alpine:latest
+        - 'alpine:latest'
       labels:
-        com.blog.hugo.description: 'React Frontend'
-        com.blog.hugo.service_type: 'React'
+        com.blog.hugo.description: React Frontend
+        com.blog.hugo.service_type: React
     ports:
       - '${BLOG_FRONTEND_APP_EXPOSED_PORT}:${BLOG_FRONTEND_APP_EXPOSED_PORT}'
     volumes:
-      - ./common:/common:ro
-      - ./packages/blog_frontend:/usr/src/app
-      - ./node_modules:/usr/src/app/node_modules
+      - './common:/common:ro'
+      - './packages/blog_frontend:/usr/src/app'
+      - './node_modules:/usr/src/app/node_modules'
     env_file:
       - .env
       - dockerfiles/.env.react
-    logging: *default-logging
+    logging:
+      driver: json-file
+      options:
+        max-size: 200k
+        max-file: '10'
     stdin_open: true
-    # depends_on:
-    #   - blog_api
     networks:
       - system
       - frontend
-
 volumes:
-  api_database_data:
-
+  api_database_data: null
 networks:
-  system:
-  backend:
-  frontend:
+  system: null
+  backend: null
+  frontend: null

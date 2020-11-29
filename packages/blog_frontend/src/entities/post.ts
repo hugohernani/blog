@@ -14,6 +14,6 @@ export interface PostData {
   posts: CursorConnection<Post>;
 }
 
-export interface TruncatedPostData {
+export interface ConnectionPostData {
   truncatedPosts: CursorConnection<Post>;
 }

@@ -20,12 +20,20 @@ export const connectionGenerateGql = (
   );
 
   return gql`
-    query Get${capitalizedEndpoint}($paging: CursorPaging, $filter: ${capitalizedSingularEntityName}Filter, $sorting: [${capitalizedSingularEntityName}Sort!]){
+    query Get${capitalizedEndpoint}($paging: CursorPaging,
+                                    $filter: ${capitalizedSingularEntityName}Filter, $sorting: [${capitalizedSingularEntityName}Sort!]){
       ${camelCaseEndpoint}(paging: $paging, filter: $filter, sorting: $sorting) {
         edges {
           node {
             ...${capitalizedSingularEntityName}Fields
           }
+          cursor
+        }
+        pageInfo{
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
         }
       }
     }

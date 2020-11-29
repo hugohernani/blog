@@ -13,6 +13,7 @@ export const PostContainer = styled.div`
   background-color: whitesmoke;
   margin: 40px 100px 40px 120px;
   padding: 20px;
+  overflow: hidden;
 
   &:hover {
     h3 {
@@ -77,9 +78,11 @@ export const ReadButtonContainer = styled.div`
   font-size: 20px;
 
   display: inline-block;
-  transform: scale(1);
-  transition: transform 0.2s ease-in-out;
+  margin-top: 5px;
 
+  transform: scale(1);
+
+  transition: transform 0.2s ease-in-out;
   &:hover {
     transform: scale(1.3);
   }

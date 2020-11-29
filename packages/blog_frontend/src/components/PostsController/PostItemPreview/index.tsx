@@ -8,7 +8,7 @@ import {
   ReadButtonContainer,
   SectionContainer,
 } from './styles';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Post } from '../../../entities';
 import ReadMoreButton from '../../ReadMoreButton';

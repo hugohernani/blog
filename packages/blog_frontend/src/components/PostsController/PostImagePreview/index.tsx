@@ -29,7 +29,6 @@ const PostImagePreview: React.FC<PostPreviewImageProps> = ({ postId, imageUrl, p
   const [pixaBayImage, setPixaBayImage] = useState<PixaBayImage>({ url: imageUrl, tags: postTags.join(',') });
 
   useEffect(() => {
-    console.log('pixabay');
     if (imageUrl === undefined || imageUrl === null) {
       const fetchPostImage = async (): Promise<void> => {
         const pixabayAvailableImages = await pixabay('/', postTags);
@@ -43,7 +42,6 @@ const PostImagePreview: React.FC<PostPreviewImageProps> = ({ postId, imageUrl, p
   }, [imageUrl, pixaBayImage.url, postTags]);
 
   useEffect(() => {
-    console.log('update post');
     if (!imageUrl && pixaBayImage.url) {
       updatePost({
         variables: {
