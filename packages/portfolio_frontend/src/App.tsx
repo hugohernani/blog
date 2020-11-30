@@ -1,10 +1,17 @@
 import React from 'react';
+import GlobalStyle from './styles';
+import { BrowserRouter } from 'react-router-dom';
 import logo from './logo.svg';
+import Routes from './routes';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <React.Fragment>
+      <BrowserRouter>
+        <Routes/>
+      </BrowserRouter>
+      <GlobalStyle/>
+    </ React.Fragment>
   );
 }
 

@@ -10,19 +10,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   settings: {
-    // 'import/parsers': {
-    //   '@typescript-eslint/parser': ['.ts', '.tsx'],
-    // },
-    // 'import/resolver': {
-    //   typescript: {
-    //     project: 'tsconfig.json',
-    //     alwaysTryTypes: true,
-    //   },
-    //   node: {
-    //     paths: ['src'],
-    //     extensions: ['.ts', '.tsx'],
-    //   },
-    // },
     react: {
       version: 'detect',
     },

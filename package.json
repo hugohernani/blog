@@ -10,7 +10,9 @@
     ],
     "nohoist": [
       "**/babel**",
-      "**/jest"
+      "**/jest",
+      "**/eslint",
+      "**/webpack"
     ]
   },
   "devDependencies": {
