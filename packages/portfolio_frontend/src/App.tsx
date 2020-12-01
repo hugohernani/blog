@@ -7,10 +7,10 @@ function App() {
   return (
     <React.Fragment>
       <BrowserRouter>
-        <Routes/>
+        <Routes />
       </BrowserRouter>
-      <GlobalStyle/>
-    </ React.Fragment>
+      <GlobalStyle />
+    </React.Fragment>
   );
 }
 

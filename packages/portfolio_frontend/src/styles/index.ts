@@ -9,7 +9,7 @@ export default createGlobalStyle`
   }
 
   body{
-    background-color: #c9d3dd;
+    background-color: rgb(72, 172, 194);
     font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;

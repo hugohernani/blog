@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,14 +18,12 @@
     "declaration": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
-    "plugins": []
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "public",
-    "env"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "public", "env"]
 }
