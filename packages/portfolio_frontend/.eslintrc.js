@@ -35,5 +35,7 @@ module.exports = {
     // 'react/no-unscaped-entities': 'off',
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
+    '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
   },
 };

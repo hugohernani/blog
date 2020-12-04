@@ -8,8 +8,10 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const NavigationHeaderContainer = styled.div``;
+
 export const BannerSection = styled.div`
-  margin: 50px 100px 0 100px;
+  margin: -5px 100px 0 100px;
 
   background-color: #eafffa;
 
@@ -33,56 +35,6 @@ export const PresentationContainer = styled.section`
   margin: 20px 0px 5px 0px;
 `;
 
-export const BiographyContainer = styled.div`
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-`;
-
-export const PresentationTitle = styled.h1`
-  margin-bottom: 20px;
-`;
-
-export const PresentationShortDescription = styled.div`
-  line-height: 1.65;
-  margin-bottom: 20px;
-`;
-
-export const PortfolioCallOutContainer = styled.div`
-  text-transform: uppercase;
-
-  background-color: #89d8eb;
-  padding: 10px 20px;
-
-  border: 1px thin darkblue;
-  border-radius: 10px;
-
-  margin: 10px 0px;
-
-  a {
-    color: black;
-  }
-`;
-
-export const PresentationSocialContainer = styled.div`
-  display: flex;
-  justify-content: start;
-
-  a {
-    color: black;
-    display: flex;
-    align-items: center;
-
-    & ~ a {
-      margin-left: 30px;
-    }
-
-    span {
-      padding-left: 5px;
-    }
-  }
-`;
-
 export const ProfileImageContainer = styled.section`
   display: flex;
   max-width: ${(props) => props.theme.imageSize.width};
@@ -101,12 +53,9 @@ export const PortfolioListContainer = styled.ul`
   align-self: stretch;
   justify-content: space-between;
 
-  margin-top: 10px;
+  margin-top: -5px;
   padding: 40px 70px;
+  z-index: -1;
 `;
 
-export const PortfolioItem = styled.li`
-  display: block;
-
-  margin: 0px auto;
-`;
+export const NavigationBottomContainer = styled.div``;
