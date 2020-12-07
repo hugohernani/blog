@@ -1,5 +1,6 @@
 import {
   BiographyContainer,
+  CallOutContainer,
   PortfolioCallOutContainer,
   PresentationShortDescription,
   PresentationTitle,
@@ -11,23 +12,30 @@ import { Link } from 'react-router-dom';
 type IUserPresentationCard = IUserInfo & ICallOutInfoButton;
 
 const UserPresentationCard: React.FC<IUserPresentationCard> = ({
-  name,
+  title,
   shortDescription,
-  callOutUrl,
-  callOutLabel,
+  portfolioCallOut,
+  portfolioUrl,
+  resumeCallOut,
+  resumeUrl,
 }) => {
   return useMemo(
     () => (
       <BiographyContainer>
-        <PresentationTitle>{name}</PresentationTitle>
+        <PresentationTitle>{title}</PresentationTitle>
         <PresentationShortDescription>{shortDescription}</PresentationShortDescription>
 
-        <PortfolioCallOutContainer>
-          <Link to={callOutUrl}>{callOutLabel}</Link>
-        </PortfolioCallOutContainer>
+        <CallOutContainer>
+          <PortfolioCallOutContainer>
+            <Link to={resumeUrl}>{resumeCallOut}</Link>
+          </PortfolioCallOutContainer>
+          <PortfolioCallOutContainer>
+            <Link to={portfolioUrl}>{portfolioCallOut}</Link>
+          </PortfolioCallOutContainer>
+        </CallOutContainer>
       </BiographyContainer>
     ),
-    [callOutLabel, callOutUrl, name, shortDescription],
+    [portfolioCallOut, portfolioUrl, resumeCallOut, resumeUrl, shortDescription, title],
   );
 };
 

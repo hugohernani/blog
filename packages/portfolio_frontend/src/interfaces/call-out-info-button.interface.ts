@@ -1,4 +1,6 @@
 export interface ICallOutInfoButton {
-  callOutUrl: string;
-  callOutLabel: string;
+  resumeCallOut: string;
+  resumeUrl: string;
+  portfolioCallOut: string;
+  portfolioUrl: string;
 }

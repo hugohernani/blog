@@ -10,7 +10,7 @@ export const Container = styled.nav`
   justify-content: space-between;
   text-transform: uppercase;
 
-  width: 100vw;
+  width: 100%;
 
   a,
   a.active {

@@ -1,4 +1,4 @@
 export interface IUserInfo {
-  name: string;
+  title: string;
   shortDescription: string;
 }

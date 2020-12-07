@@ -5,7 +5,7 @@ export const Container = styled.nav`
   justify-content: start;
 
   a {
-    color: black;
+    color: ${(props) => props.theme.textColor || 'black'};
     display: flex;
     align-items: center;
 

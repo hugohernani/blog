@@ -8,6 +8,7 @@ export const BiographyContainer = styled.div`
 
 export const PresentationTitle = styled.h1`
   margin-bottom: 20px;
+  font-size: 100px;
 `;
 
 export const PresentationShortDescription = styled.div`
@@ -15,10 +16,17 @@ export const PresentationShortDescription = styled.div`
   margin-bottom: 20px;
 `;
 
+export const CallOutContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  width: 41%;
+`;
+
 export const PortfolioCallOutContainer = styled.div`
   text-transform: uppercase;
 
-  background-color: #89d8eb;
+  background-color: whitesmoke;
   padding: 10px 20px;
 
   border: 1px thin darkblue;

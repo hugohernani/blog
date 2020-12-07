@@ -5,7 +5,9 @@ import {
   NavigationHeaderContainer,
   PortfolioListContainer,
   PresentationContainer,
+  PresentationInfoContainer,
   ProfileImageContainer,
+  SocialLinksContainer,
 } from './styles';
 import React, { useCallback, useState } from 'react';
 import PortfolioNavigationHeader from '../../components/PortfolioNavigationHeader';
@@ -13,28 +15,39 @@ import PortfolioNavigationBottom from '../../components/PortfolioNavigationBotto
 import SocialLinks from '../../components/SocialLinks';
 import PortfolioHomeListPreview from '../../components/PortfolioHomeListPreview';
 import UserPresentationCard from '../../components/UserPresentationCard';
-import { ICallOutInfoButton, IUserInfo, IUserProfileImage } from '../../interfaces';
-import UserPresentationProfileImage from 'src/components/UserPresentationProfileImage';
+import { ICallOutInfoButton, ISocialLinkConfig, IUserInfo, IUserProfileImage } from '../../interfaces';
+import UserPresentationProfileImage from '../../components/UserPresentationProfileImage';
 
 const Homepage: React.FC = () => {
+  const [userPresentationInfo] = useState<IUserInfo & ICallOutInfoButton>({
+    title: 'Web Developer',
+    shortDescription: `
+      Hi, I am coder. That's what I do for a living.
+      I am a fullstack web developer. Wanna see a short description of my career and things I have done in technology? Then my resume will show you this.
+      But wanna see in action what kind of things I built and current projects and technologies I am working on? Then check out my portfolio
+      `,
+    resumeCallOut: 'Resume',
+    portfolioCallOut: 'Portfolio',
+    resumeUrl: process.env.PUBLIC_URL + '/hugo-hernani-resume.pdf',
+    portfolioUrl: '/portfolio',
+  });
+
   const [userProfileImage] = useState<IUserProfileImage>({
-    url: 'https://cdn.pixabay.com/photo/2019/10/24/08/33/pet-4573741_960_720.png',
+    url: 'me-avatar.svg',
     description: 'Hugo Hernani',
-    width: '460px',
-    height: '370px',
+    width: '560px',
+    height: '600px',
+  });
+
+  const [socialLinkConfig] = useState<ISocialLinkConfig>({
+    iconColor: '#000000',
+    textColor: '#ffffff',
   });
 
   const profileImageSizeCb = useCallback(() => {
     const { width, height } = userProfileImage;
     return { width, height };
   }, [userProfileImage]);
-
-  const [userPresentationInfo] = useState<IUserInfo & ICallOutInfoButton>({
-    name: 'Hugo Hernani',
-    shortDescription: 'Lorem Ipsum',
-    callOutLabel: 'Check my portfolio',
-    callOutUrl: '/portfolio',
-  });
 
   return (
     <Container>
@@ -43,18 +56,17 @@ const Homepage: React.FC = () => {
       </NavigationHeaderContainer>
       <BannerSection>
         <PresentationContainer>
-          <UserPresentationCard {...userPresentationInfo} />
-          <SocialLinks />
+          <PresentationInfoContainer>
+            <UserPresentationCard {...userPresentationInfo} />
+          </PresentationInfoContainer>
         </PresentationContainer>
 
         <ProfileImageContainer theme={{ imageSize: profileImageSizeCb() }}>
-          <UserPresentationProfileImage
-            url={userProfileImage.url}
-            description={userProfileImage.description}
-            width={userProfileImage.width}
-            height={userProfileImage.height}
-          />
+          <UserPresentationProfileImage {...userProfileImage} />
         </ProfileImageContainer>
+        <SocialLinksContainer>
+          <SocialLinks {...socialLinkConfig} />
+        </SocialLinksContainer>
       </BannerSection>
 
       <PortfolioListContainer>

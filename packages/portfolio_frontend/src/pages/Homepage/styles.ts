@@ -8,39 +8,54 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const NavigationHeaderContainer = styled.div``;
+export const NavigationHeaderContainer = styled.div`
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+`;
 
 export const BannerSection = styled.div`
-  margin: -5px 100px 0 100px;
-
-  background-color: #eafffa;
+  background-color: transparent;
 
   @media (min-width: 900px) {
     display: flex;
     align-items: stretch;
-    flex-flow: row;
+    flex-flow: row wrap;
     justify-content: space-evenly;
-  }
 
-  section {
-    flex-basis: 49%;
+    margin: -10px 100px 10px 100px;
+    min-height: 100vh;
+
+    section {
+      flex-basis: 46%;
+    }
   }
+`;
+
+export const SocialLinksContainer = styled.div`
+  align-self: flex-start;
 `;
 
 export const PresentationContainer = styled.section`
   display: flex;
   flex-flow: column;
-  justify-content: space-between;
+  justify-content: center;
 
   margin: 20px 0px 5px 0px;
 `;
 
+export const PresentationInfoContainer = styled.section`
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+`;
+
 export const ProfileImageContainer = styled.section`
   display: flex;
-  max-width: ${(props) => props.theme.imageSize.width};
+  max-width: fit-content;
 
   img {
-    margin: auto;
+    margin: 0px 0px auto 0px;
   }
 `;
 
@@ -53,9 +68,12 @@ export const PortfolioListContainer = styled.ul`
   align-self: stretch;
   justify-content: space-between;
 
-  margin-top: -5px;
   padding: 40px 70px;
   z-index: -1;
 `;
 
-export const NavigationBottomContainer = styled.div``;
+export const NavigationBottomContainer = styled.div`
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+`;
