@@ -16,4 +16,8 @@ export const Container = styled.nav`
   a.active {
     color: black;
   }
+
+  @media screen and (max-width: 600px) {
+    justify-content: space-evenly;
+  }
 `;

@@ -1,12 +1,22 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { IUserProfileImage } from '../../interfaces';
 
-const UserPresentationProfileImage: React.FC<IUserProfileImage> = ({ url, description, width, height }) => {
-  return useMemo(() => <img src={url} alt={description} width={width} height={height} />, [
+const UserPresentationProfileImage: React.FC<IUserProfileImage> = ({ url, hoverUrl, description }) => {
+  const [sourceUrl, setSourceUrl] = useState(url);
+
+  const onImageOver = useCallback(() => {
+    setSourceUrl(hoverUrl as string);
+  }, [hoverUrl]);
+
+  const onImageOut = useCallback(() => {
+    setSourceUrl(url);
+  }, [url]);
+
+  return useMemo(() => <img onMouseOver={onImageOver} onMouseOut={onImageOut} src={sourceUrl} alt={description} />, [
     description,
-    height,
-    url,
-    width,
+    onImageOut,
+    onImageOver,
+    sourceUrl,
   ]);
 };
 

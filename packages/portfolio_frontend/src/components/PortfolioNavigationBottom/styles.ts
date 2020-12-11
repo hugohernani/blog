@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.nav`
-  min-height: 300px;
+  min-height: 50px;
   background-color: whitesmoke;
-  padding: 0px 30px;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   text-transform: uppercase;
-
   width: 100vw;
 
   a,
@@ -17,3 +15,5 @@ export const Container = styled.nav`
     color: black;
   }
 `;
+
+export const Copyright = styled.div``;
