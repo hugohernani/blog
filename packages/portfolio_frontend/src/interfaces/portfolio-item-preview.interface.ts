@@ -1,5 +1,6 @@
 export interface IPortfolioItemPreview {
-  url: string;
+  projectUrl: string;
+  imageUrl: string;
   shortDescription: string;
   imageSize: string;
   projectTitle: string;

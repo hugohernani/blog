@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { IPortfolioItemPreview } from '../../interfaces';
 import {
   Container,
@@ -12,7 +13,8 @@ import {
 } from './styles';
 
 const PortfolioItemPreview: React.FC<IPortfolioItemPreview> = ({
-  url,
+  projectUrl,
+  imageUrl,
   shortDescription,
   dateRange,
   projectTitle,
@@ -22,20 +24,22 @@ const PortfolioItemPreview: React.FC<IPortfolioItemPreview> = ({
   return useMemo(
     () => (
       <Container>
-        <ImageContainer>
-          <img src={url} alt={shortDescription} width={imageSize} height={imageSize} />
-        </ImageContainer>
-        <InfoContainer theme={{ imageSize }}>
-          <MetaDataContainer>
-            <MetaDataTechnology>{technology}</MetaDataTechnology>
-            <MetaDataDate>{dateRange}</MetaDataDate>
-          </MetaDataContainer>
-          <Title>{projectTitle}</Title>
-          <Description>{shortDescription}</Description>
-        </InfoContainer>
+        <Link to={projectUrl}>
+          <ImageContainer>
+            <img src={imageUrl} alt={shortDescription} width={imageSize} height={imageSize} />
+          </ImageContainer>
+          <InfoContainer theme={{ imageSize }}>
+            <MetaDataContainer>
+              <MetaDataTechnology>{technology}</MetaDataTechnology>
+              <MetaDataDate>{dateRange}</MetaDataDate>
+            </MetaDataContainer>
+            <Title>{projectTitle}</Title>
+            <Description>{shortDescription}</Description>
+          </InfoContainer>
+        </Link>{' '}
       </Container>
     ),
-    [url, shortDescription, imageSize, technology, dateRange, projectTitle],
+    [projectUrl, imageUrl, shortDescription, imageSize, technology, dateRange, projectTitle],
   );
 };
 
