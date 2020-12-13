@@ -1,12 +1,14 @@
-import { Container, Copyright } from './styles';
+import { NavContainer, Copyright, BaseBottomContainer } from './styles';
 import React, { useMemo } from 'react';
 
 const PortfolioNavigationBottom: React.FC = () => {
   return useMemo(
     () => (
-      <Container>
-        <Copyright>2020 - Hugo Hernani</Copyright>
-      </Container>
+      <BaseBottomContainer>
+        <NavContainer>
+          <Copyright>2020 - Hugo Hernani</Copyright>
+        </NavContainer>
+      </BaseBottomContainer>
     ),
     [],
   );

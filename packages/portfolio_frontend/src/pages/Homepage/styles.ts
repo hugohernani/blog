@@ -2,12 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div``;
 
-export const NavigationHeaderContainer = styled.div`
-  display: flex;
-  justify-content: stretch;
-  width: 100%;
-`;
-
 export const BannerSection = styled.div`
   background-color: transparent;
 
@@ -86,10 +80,4 @@ export const ProfileImageContainer = styled.section`
       height: ${(props) => props.theme.imageSize.height};
     }
   }
-`;
-
-export const NavigationBottomContainer = styled.div`
-  display: flex;
-  justify-content: stretch;
-  width: 100%;
 `;

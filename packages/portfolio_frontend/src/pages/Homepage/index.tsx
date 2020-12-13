@@ -1,8 +1,6 @@
 import {
   BannerSection,
   Container,
-  NavigationBottomContainer,
-  NavigationHeaderContainer,
   PresentationContainer,
   PresentationInfoContainer,
   ProfileContainer,
@@ -51,9 +49,7 @@ const Homepage: React.FC = () => {
 
   return (
     <Container>
-      <NavigationHeaderContainer>
-        <PortfolioNavigationHeader />
-      </NavigationHeaderContainer>
+      <PortfolioNavigationHeader />
       <BannerSection>
         <ProfileContainer>
           <PresentationContainer>
@@ -71,9 +67,7 @@ const Homepage: React.FC = () => {
         </SocialLinksContainer>
       </BannerSection>
 
-      <NavigationBottomContainer>
-        <PortfolioNavigationBottom />
-      </NavigationBottomContainer>
+      <PortfolioNavigationBottom />
     </Container>
   );
 };

@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export const Container = styled.nav`
+export const BaseHeaderContainer = styled.div`
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+`;
+
+export const NavContainer = styled.nav`
   min-height: 60px;
   background-color: whitesmoke;
   padding: 0px 30px;
