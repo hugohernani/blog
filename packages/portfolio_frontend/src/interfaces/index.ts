@@ -4,3 +4,6 @@ export * from './user-info.interface';
 export * from './user-profile-image.interface';
 export * from './social-link-config.interface';
 export * from './project.interface';
+export * from './markdown-image.interface';
+export * from './markdown-code.interface';
+export * from './markdown-renderer.interface';
