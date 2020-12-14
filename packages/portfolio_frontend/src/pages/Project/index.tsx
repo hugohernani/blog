@@ -16,6 +16,7 @@ import PortfolioNavigationHeader from '../../components/PortfolioNavigationHeade
 import PortfolioNavigationBottom from '../../components/PortfolioNavigationBottom';
 import { IProject } from '../../interfaces';
 import MarkdownContent from 'src/components/MarkdownContent';
+import { Link } from 'react-router-dom';
 
 const Project: React.FC = () => {
   const [project] = useState<IProject>({
@@ -279,7 +280,9 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
   return useMemo(
     () => (
       <Container>
-        <PortfolioNavigationHeader />
+        <PortfolioNavigationHeader>
+          <Link to="/portfolio">Portfolio List</Link>
+        </PortfolioNavigationHeader>
         <ImageContainer></ImageContainer>
         <ContentContainer>
           <ProjectContainer>
