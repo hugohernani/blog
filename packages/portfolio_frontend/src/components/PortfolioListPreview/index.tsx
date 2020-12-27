@@ -2,6 +2,7 @@ import { ContainerList, PortfolioItemContainer } from './styles';
 import React, { useMemo, useState } from 'react';
 import { IPortfolioItemPreview } from '../../interfaces';
 import PortfolioItemPreview from '../PortfolioItemPreview';
+import ModalProvider from '../../providers/ModalProvider';
 
 const PortfolioListPreview: React.FC = () => {
   const [portfolioImageArr] = useState<IPortfolioItemPreview[]>([
@@ -63,13 +64,15 @@ const PortfolioListPreview: React.FC = () => {
 
   return useMemo(
     () => (
-      <ContainerList>
-        {portfolioImageArr.map((portfolioAttrs, index) => (
-          <PortfolioItemContainer key={index}>
-            <PortfolioItemPreview {...portfolioAttrs} />
-          </PortfolioItemContainer>
-        ))}
-      </ContainerList>
+      <ModalProvider>
+        <ContainerList>
+          {portfolioImageArr.map((portfolioAttrs, index) => (
+            <PortfolioItemContainer key={index}>
+              <PortfolioItemPreview {...portfolioAttrs} />
+            </PortfolioItemContainer>
+          ))}
+        </ContainerList>
+      </ModalProvider>
     ),
     [portfolioImageArr],
   );
