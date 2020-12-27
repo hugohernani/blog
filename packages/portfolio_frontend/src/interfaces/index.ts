@@ -7,3 +7,5 @@ export * from './project.interface';
 export * from './markdown-image.interface';
 export * from './markdown-code.interface';
 export * from './markdown-renderer.interface';
+export * from './global-modal.interface';
+export * from './modal-context.interface';
