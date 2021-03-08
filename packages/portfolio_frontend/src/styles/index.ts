@@ -29,6 +29,12 @@ export default createGlobalStyle`
     // padding: 40px 20px;
   }
 
+  #root.open-modal{
+    position: fixed;
+    height: 100vh;
+    overflow-y: overlay;
+  }
+
   button{
     cursor: pointer;
   }

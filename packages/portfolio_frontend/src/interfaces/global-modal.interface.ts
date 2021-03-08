@@ -1,6 +1,7 @@
 import { FC } from 'react';
+import { IReactElement } from './modal-context.interface';
 
 export interface IGlobalModal {
-  modal: FC;
+  modal: IReactElement;
   unSetModal: () => void;
 }

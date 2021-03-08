@@ -1,7 +1,7 @@
 import {
   BiographyContainer,
   CallOutContainer,
-  PortfolioCallOutContainer,
+  CallOutButton,
   PresentationShortDescription,
   PresentationTitle,
 } from './styles';
@@ -26,12 +26,12 @@ const UserPresentationCard: React.FC<IUserPresentationCard> = ({
         <PresentationShortDescription>{shortDescription}</PresentationShortDescription>
 
         <CallOutContainer>
-          <PortfolioCallOutContainer>
-            <Link to={resumeUrl}>{resumeCallOut}</Link>
-          </PortfolioCallOutContainer>
-          <PortfolioCallOutContainer>
-            <Link to={portfolioUrl}>{portfolioCallOut}</Link>
-          </PortfolioCallOutContainer>
+          <Link to={resumeUrl}>
+            <CallOutButton>{resumeCallOut}</CallOutButton>
+          </Link>
+          <Link to={portfolioUrl}>
+            <CallOutButton>{portfolioCallOut}</CallOutButton>
+          </Link>
         </CallOutContainer>
       </BiographyContainer>
     ),

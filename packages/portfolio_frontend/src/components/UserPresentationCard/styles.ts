@@ -49,9 +49,13 @@ export const CallOutContainer = styled.div`
     width: 80%;
     justify-content: space-evenly;
   }
+
+  a {
+    color: black;
+  }
 `;
 
-export const PortfolioCallOutContainer = styled.div`
+export const CallOutButton = styled.div`
   cursor: pointer;
 
   text-transform: uppercase;
@@ -71,9 +75,5 @@ export const PortfolioCallOutContainer = styled.div`
 
   &:hover {
     transform: scale(1.1);
-  }
-
-  a {
-    color: black;
   }
 `;

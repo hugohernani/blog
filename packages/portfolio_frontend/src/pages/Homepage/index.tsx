@@ -21,7 +21,7 @@ const Homepage: React.FC = () => {
     shortDescription: `
       Hi, I am coder. I build software things. And I love that I am able to do so.
       Besides having a degree in computer science, I am a fullstack web developer. Wanna see a short description of my career and some of the things I have done in technology? Then my resume will show you this.
-      But if you wanna see in action what kind of things I have built and the current projects and technologies I have being working on? Then check out my portfolio.
+      But do you wanna see in action what kind of things I have built and the current projects and technologies I have being working on? Then check out my portfolio.
       `,
     resumeCallOut: 'Resume',
     portfolioCallOut: 'Portfolio',
