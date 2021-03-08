@@ -4,6 +4,7 @@
   "homepage": "http://hugohernani.github.io/blog",
   "scripts": {
     "frontend:start": "cd packages/blog_frontend && yarn start",
+    "portfolio:start": "cd packages/portfolio_frontend && yarn start",
     "portfolio:predeploy": "cd packages/portfolio_frontend && npm run build",
     "portfolio:deploy": "cd packages/portfolio_frontend && gh-pages -d build"
   },
