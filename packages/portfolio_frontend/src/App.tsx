@@ -6,7 +6,7 @@ import Routes from './routes';
 function App() {
   return (
     <React.Fragment>
-      <BrowserRouter>
+      <BrowserRouter basename={'/blog'}>
         <Routes />
       </BrowserRouter>
       <GlobalStyle />
