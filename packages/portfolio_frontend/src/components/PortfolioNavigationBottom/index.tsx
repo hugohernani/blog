@@ -6,7 +6,7 @@ const PortfolioNavigationBottom: React.FC = () => {
     () => (
       <BaseBottomContainer>
         <NavContainer>
-          <Copyright>2020 - Hugo Hernani</Copyright>
+          <Copyright>2021 - Hugo Hernani</Copyright>
         </NavContainer>
       </BaseBottomContainer>
     ),
